@@ -2,7 +2,7 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 const Web3 = require("web3");
 const compiledMarket = require("./build/Market.json");
 require('dotenv').config('../../../.env')
-console.log(process.env.ETHEREUM_MNEMONIC);
+
 const provider = new HDWalletProvider(
   process.env.ETHEREUM_MNEMONIC,
   // remember to change this to your own phrase!

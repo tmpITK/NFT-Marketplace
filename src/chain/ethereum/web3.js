@@ -1,4 +1,6 @@
 import Web3 from "web3";
+import dotenv from 'dotenv';
+dotenv.config('../../../.env'); // TODO make use of next.config.js
 
 let web3;
 
