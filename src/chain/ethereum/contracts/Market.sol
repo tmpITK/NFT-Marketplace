@@ -13,6 +13,10 @@ contract Market {
         return newNft;
     }
 
+    function getNumberOfNfts() public view returns(uint) {
+        return nftList.length;
+    }
+
     function addNftToOwner(address nftAddress, address owner) private {
 
         if(ownerMap[owner].length > 0) {
@@ -42,16 +46,12 @@ contract Nft {
         imageHash = ipfsHash;
     }
 
-    function getOwner() public view  returns (address){
-        return owner;
-    }
-
-    function getName() public view  returns (string memory){
-        return name;
-    }
-
-    function getImageHash() public view  returns (string memory){
-        return imageHash;
+    function getNftInfo() public view returns (string memory, address, string memory){
+        return (
+            name,
+            owner,
+            imageHash
+        );
     }
 
 }

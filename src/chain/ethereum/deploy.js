@@ -24,3 +24,7 @@ const deploy = async () => {
   provider.engine.stop();
 };
 deploy();
+
+
+//Attempting to deploy from account 0xC75444ef801b50f5601230db66F784e2078BE7Bb
+//Contract deployed to 0xa456f96b12a27574B74244119F369E581e0c869D
