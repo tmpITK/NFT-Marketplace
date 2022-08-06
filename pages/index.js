@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card } from "semantic-ui-react";
+import 'semantic-ui-css/semantic.min.css'
 
 import Market from "../src/chain/ethereum/market";
 import Nft from "../src/chain/ethereum/nft";
@@ -44,7 +45,7 @@ class MarketplaceIndex extends Component {
 
   renderNftPreview() {
     const nfts = this.props.nfts;
-    const toShowCase = this.getNumbRandomArrayElements(nfts, 1);
+    const toShowCase = this.getNumbRandomArrayElements(nfts, );
 
     const cardItems = toShowCase.map((nft) => {
       return {
@@ -56,7 +57,7 @@ class MarketplaceIndex extends Component {
         image: getIpfsUrlFromHash(nft.ipfsHash),
       }
     });
-    return <Card.Group centered items={cardItems} />;
+    return <Card.Group class="small images" centered items={cardItems}/>;
   }
 
   render() {
