@@ -2,20 +2,21 @@ import React, { Component } from "react";
 
 import Market from "../src/chain/ethereum/market";
 import Nft from "../src/chain/ethereum/nft";
+import MintForm from "../components/MintForm";
 
 class MarketplaceIndex extends Component {
 
   static async getInitialProps(props) {
-    const market = await Market("0xa456f96b12a27574B74244119F369E581e0c869D");
+    const market = await Market("0xD79aD96386972832232D1E2EB292E20291be1cd4");
     const numberOfNfts = await market.methods.getNumberOfNfts().call();
-
+    
     const nfts = await Promise.all(
       Array(parseInt(numberOfNfts))
         .fill()
-        .map((element, index) => {
-            const nftAddress = market.methods.nftList(index).call();
+        .map(async (element, index) => {
+            const nftAddress = await market.methods.nftList(index).call();
             const nft = Nft(nftAddress);
-            const nftInfo = nft.methods.getNftInfo().call();
+            const nftInfo = await nft.methods.getNftInfo().call();
             return nftInfo;
         })
     );
@@ -28,7 +29,10 @@ class MarketplaceIndex extends Component {
 
   render() {
     return(
-      <h1>Welcome to NFT Marketplace</h1>
+      <div>          
+      NFT name {this.props.nfts[0][0]} NFT owner {this.props.nfts[0][1]} NFT IPFS url {this.props.nfts[0][2]}
+      </div>
+      
     );
   }
 }
