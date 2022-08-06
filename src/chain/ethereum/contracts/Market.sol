@@ -5,7 +5,7 @@ contract Market {
     address [] public nftList;
     mapping(address => address []) public ownerMap;
 
-    function mint(string memory name, string memory imgHash) public payable returns(address){
+    function mint(string memory name, string memory imgHash) public returns(address){
         address newNft = address(new Nft(name, msg.sender, imgHash));
         nftList.push(newNft);
         addNftToOwner(newNft, msg.sender);
@@ -25,7 +25,7 @@ contract Market {
         ownerMap[owner] = [nftAddress];
     }
 
-    function getOwnedNft(address owner, uint index) private view returns (address){
+    function getOwnedNft(address owner, uint index) public view returns (address){
         require(ownerMap[owner].length > 0);
         // I will call this only so I will have to chekc for size beforehand
         return ownerMap[owner][index];
