@@ -3,7 +3,8 @@ import { Card } from "semantic-ui-react";
 
 import Market from "../src/chain/ethereum/market";
 import Nft from "../src/chain/ethereum/nft";
-import MintForm from "../components/MintForm";
+
+import Layout from "../components/Layout";
 
 class MarketplaceIndex extends Component {
 
@@ -54,9 +55,9 @@ class MarketplaceIndex extends Component {
 
   render() {
     return(
-      <div>          
+      <Layout>
         {this.renderNftPreview()}
-      </div>
+      </Layout>
       
     );
   }
