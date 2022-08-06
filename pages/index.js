@@ -5,6 +5,8 @@ import Market from "../src/chain/ethereum/market";
 import Nft from "../src/chain/ethereum/nft";
 
 import Layout from "../components/Layout";
+import { Link } from "../routes";
+import { getIpfsUrlFromHash } from "../src/utils";
 
 class MarketplaceIndex extends Component {
 
@@ -22,8 +24,9 @@ class MarketplaceIndex extends Component {
 
             return {
               name: nftInfo[0],
-              address: nftInfo[1],
-              url: nftInfo[2],
+              owner: nftInfo[1],
+              ipfsHash: nftInfo[2],
+              address: nftAddress,
             };
         })
     );
@@ -46,11 +49,14 @@ class MarketplaceIndex extends Component {
     const cardItems = toShowCase.map((nft) => {
       return {
         header: nft.name,
-        description: nft.address,
-        image: nft.url
+        description: (
+          <Link route={`/nft/${nft.address}`}>
+            <a>Details</a>
+          </Link>),
+        image: getIpfsUrlFromHash(nft.ipfsHash),
       }
     });
-    return <Card.Group items={cardItems} />;
+    return <Card.Group centered items={cardItems} />;
   }
 
   render() {

@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   webpack5: true,
+  exportTrailingSlash: true,
   webpack: (config) => {
     config.resolve.fallback = { fs: false };
 

@@ -2,10 +2,11 @@
   "name": "nft-marketplace",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "node server.js",
-    "build": "next build",
-    "start": "next start",
+  "scripts": {     
+    "test": "mocha",     
+    "dev": "node server.js",     
+    "build": "next build",     
+    "start": "NODE_ENV=production node server.js",
     "lint": "next lint"
   },
   "browser": {
