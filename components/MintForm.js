@@ -14,16 +14,12 @@ class MintForm extends Component {
     event.preventDefault();
     try{
         const market = Market("0xD79aD96386972832232D1E2EB292E20291be1cd4");
-        const numberOfNfts = await market.methods.getNumberOfNfts().call();
 
-        // create test nft
         console.log("MINTING")
         const accounts = await web3.eth.getAccounts();
-
-        console.log(accounts[0]);
-        const newNft = await market.methods.mint(this.state.name, this.state.url).send({
-        from: accounts[0],
-        });
+        
+        await market.methods.mint(this.state.name, this.state.url)
+                            .send({from: accounts[0]});
         console.log("MINTED");
 
         
