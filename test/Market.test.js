@@ -35,4 +35,13 @@ describe("Market", () => {
         assert(nftInfo[2] == "testHash");
     });
 
+    it("Gives back owned nft", async () => {
+        await market.methods.mint("testName", "testHash").send({from: accounts[0], gas:1000000});
+        const testNftAddress = await market.methods.nftList(0).call();
+
+        const ownedNft = await market.methods.getOwnedNft(accounts[0], 0).call();
+
+        assert(testNftAddress == ownedNft);
+    })
+
 });
