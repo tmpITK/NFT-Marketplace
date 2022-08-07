@@ -1,0 +1,3 @@
+Environment variable handling
+Blockchain adapters
+Only one Market address usage - somehow add back an instance of the market with the current address
