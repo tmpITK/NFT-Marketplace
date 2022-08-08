@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { Card } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css'
 
-import Market from "../src/chain/ethereum/market";
-import Nft from "../src/chain/ethereum/nft";
+import EthereumAdapter from "../src/chain/adapters/EtehreumAdapter";
 
 import Layout from "../components/Layout";
 import { Link } from "../routes";
@@ -12,7 +11,7 @@ import { getIpfsUrlFromHash } from "../src/utils";
 class MarketplaceIndex extends Component {
 
   static async getInitialProps(props) {
-    const market = await Market("0xD79aD96386972832232D1E2EB292E20291be1cd4");
+    const market = await EthereumAdapter.getMarket("0xD79aD96386972832232D1E2EB292E20291be1cd4");
     const numberOfNfts = await market.methods.getNumberOfNfts().call();
 
     const nfts = await Promise.all(
@@ -20,7 +19,7 @@ class MarketplaceIndex extends Component {
         .fill()
         .map(async (element, index) => {
             const nftAddress = await market.methods.nftList(index).call();
-            const nft = Nft(nftAddress);
+            const nft = EthereumAdapter.getNft(nftAddress);
             const nftInfo = await nft.methods.getNftInfo().call();
 
             return {
