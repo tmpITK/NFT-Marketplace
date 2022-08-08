@@ -37,14 +37,9 @@ class MarketplaceIndex extends Component {
     };
   }
 
-  getNumbRandomArrayElements(arr, num) {
-    const shuffled = [...arr].sort(() => 0.5 -Math.random());
-    return shuffled.slice(0, num);
-  }
-
   renderNftPreview() {
     const nfts = this.props.nfts;
-    const toShowCase = this.getNumbRandomArrayElements(nfts, );
+    const toShowCase = nfts.slice(-3);
 
     const cardItems = toShowCase.map((nft) => {
       return {
@@ -56,7 +51,7 @@ class MarketplaceIndex extends Component {
         image: getIpfsUrlFromHash(nft.ipfsHash),
       }
     });
-    return <Card.Group class="small images" centered items={cardItems}/>;
+    return <Card.Group centered items={cardItems}/>;
   }
 
   render() {
