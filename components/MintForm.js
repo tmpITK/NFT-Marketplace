@@ -15,7 +15,7 @@ class MintForm extends Component {
   onSubmit = async (event) => {
     event.preventDefault();
     try{
-        await ChainAdapter.mint("0xD79aD96386972832232D1E2EB292E20291be1cd4");
+        await ChainAdapter.mint(process.env.MARKET_ADDRESS);
     }catch (err){
         console.error(err);
     }

@@ -7,32 +7,15 @@ import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
 import Layout from "../components/Layout";
 import { Link } from "../routes";
 import { getIpfsUrlFromHash } from "../src/utils";
+import market from "../src/chain/ethereum/market";
 
 const ChainAdapter = EthereumAdapter;
 
 class MarketplaceIndex extends Component {
 
   static async getInitialProps(props) {
-    const market = await ChainAdapter.getMarket("0xD79aD96386972832232D1E2EB292E20291be1cd4");
-    const numberOfNfts = await market.methods.getNumberOfNfts().call();
 
-    const nfts = await Promise.all(
-      Array(parseInt(numberOfNfts))
-        .fill()
-        .map(async (element, index) => {
-            const nftAddress = await market.methods.nftList(index).call();
-            const nft = ChainAdapter.getNft(nftAddress);
-            const nftInfo = await nft.methods.getNftInfo().call();
-
-            return {
-              name: nftInfo[0],
-              owner: nftInfo[1],
-              ipfsHash: nftInfo[2],
-              address: nftAddress,
-            };
-        })
-    );
-    console.log(nfts);
+    const nfts = await ChainAdapter.getNftList(process.env.MARKET_ADDRESS);
 
     return {
       nfts: nfts
