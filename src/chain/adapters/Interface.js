@@ -10,6 +10,7 @@ let AdapterInterface = {
     mint: not_defined,
     getNftList: not_defined,
     getNftImage: not_defined,
+    getUserAddress: not_defined,
 }
 
 export default AdapterInterface;

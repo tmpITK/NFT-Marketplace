@@ -17,7 +17,7 @@ async function mint(marketAddress) {
     const market = getMarket(marketAddress);
 
     console.log("MINTING")
-    const accounts = await web3.eth.getAccounts();
+    const accounts = await getUserAddress();
     await market.methods.mint(this.state.name, this.state.url)
                         .send({from: accounts[0]});
     console.log("MINTED");
@@ -55,6 +55,13 @@ function getNftImage(nft){
 }
 
 
+async function getUserAddress(){
+    console.log('asd')
+    const accounts = await web3.eth.getAccounts();
+    return accounts[0];
+}
+
+
 let EthereumAdapter = Interface;
 
 EthereumAdapter.getMarket = getMarket;
@@ -62,5 +69,6 @@ EthereumAdapter.getNft = getNft;
 EthereumAdapter.mint = mint;
 EthereumAdapter.getNftList = getNftList;
 EthereumAdapter.getNftImage = getNftImage;
+EthereumAdapter.getUserAddress = getUserAddress;
 
 export default EthereumAdapter;
