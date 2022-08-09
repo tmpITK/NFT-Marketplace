@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Card } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css'
 
-import EthereumAdapter from "../src/chain/adapters/EtehreumAdapter";
+import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
 
 import Layout from "../components/Layout";
 import { Link } from "../routes";

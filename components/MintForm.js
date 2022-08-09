@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
 import Market from "../src/chain/ethereum/market";
 import web3 from "../src/chain/ethereum/web3";
-import EthereumAdapter from "../src/chain/adapters/EtehreumAdapter";
+import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
 
 const ChainAdapter = EthereumAdapter;
 
