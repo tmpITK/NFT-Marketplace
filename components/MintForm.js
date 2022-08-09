@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
 import Market from "../src/chain/ethereum/market";
 import web3 from "../src/chain/ethereum/web3";
+import EthereumAdapter from "../src/chain/adapters/EtehreumAdapter";
 
+const ChainAdapter = EthereumAdapter;
 
 class MintForm extends Component {
   state = {
@@ -13,16 +15,7 @@ class MintForm extends Component {
   onSubmit = async (event) => {
     event.preventDefault();
     try{
-        const market = Market("0xD79aD96386972832232D1E2EB292E20291be1cd4");
-
-        console.log("MINTING")
-        const accounts = await web3.eth.getAccounts();
-        
-        await market.methods.mint(this.state.name, this.state.url)
-                            .send({from: accounts[0]});
-        console.log("MINTED");
-
-        
+        await ChainAdapter.mint("0xD79aD96386972832232D1E2EB292E20291be1cd4");
     }catch (err){
         console.error(err);
     }

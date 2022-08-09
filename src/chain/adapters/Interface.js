@@ -6,7 +6,8 @@ function not_defined(name) {
 
 let AdapterInterface = {
     getMarket: not_defined,
-    getNft: not_defined
+    getNft: not_defined,
+    mint: not_defined
 }
 
 export default AdapterInterface;
