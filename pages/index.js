@@ -7,7 +7,6 @@ import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
 import Layout from "../components/Layout";
 import { Link } from "../routes";
 import { getIpfsUrlFromHash } from "../src/utils";
-import market from "../src/chain/ethereum/market";
 
 const ChainAdapter = EthereumAdapter;
 
@@ -33,7 +32,7 @@ class MarketplaceIndex extends Component {
           <Link route={`/nft/${nft.address}`}>
             <a>Details</a>
           </Link>),
-        image: getIpfsUrlFromHash(nft.ipfsHash),
+        image: ChainAdapter.getNftImage(nft),
       }
     });
     return <Card.Group centered items={cardItems}/>;

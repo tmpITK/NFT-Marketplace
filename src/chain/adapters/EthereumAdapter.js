@@ -2,6 +2,7 @@ import Interface from "./Interface";
 import Market from "../ethereum/market";
 import Nft from "../ethereum/nft";
 import web3 from "../ethereum/web3";
+import { getIpfsUrlFromHash } from "../../utils";
 
 function getMarket(address) {
     return Market(address);
@@ -49,11 +50,17 @@ async function getNftList(marketAddress) {
 }
 
 
+function getNftImage(nft){
+    return getIpfsUrlFromHash(nft.ipfsHash);
+}
+
+
 let EthereumAdapter = Interface;
 
 EthereumAdapter.getMarket = getMarket;
 EthereumAdapter.getNft = getNft;
 EthereumAdapter.mint = mint;
 EthereumAdapter.getNftList = getNftList;
+EthereumAdapter.getNftImage = getNftImage;
 
 export default EthereumAdapter;
