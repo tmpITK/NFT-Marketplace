@@ -13,13 +13,16 @@ function getNft(address) {
 }
 
 
-async function mint(marketAddress) {
+async function mint(marketAddress, name, url) {
+    console.log("FOS");
+    console.log(marketAddress);
     const market = getMarket(marketAddress);
 
     console.log("MINTING")
     const accounts = await getUserAddress();
-    await market.methods.mint(this.state.name, this.state.url)
-                        .send({from: accounts[0]});
+    console.log(accounts)
+    await market.methods.mint(name, url)
+                        .send({from: accounts});
     console.log("MINTED");
 }
 
@@ -56,7 +59,6 @@ function getNftImage(nft){
 
 
 async function getUserAddress(){
-    console.log('asd')
     const accounts = await web3.eth.getAccounts();
     return accounts[0];
 }

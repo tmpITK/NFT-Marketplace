@@ -13,13 +13,11 @@ class Header extends Component {
   }
 
   async componentDidMount() {
-    console.log("akarmi")
     const userAddress = await ChainAdapter.getUserAddress();
     this.setState({userAddress: userAddress});
   }
 
   render() {
-    console.log("Nema")
     return (
       <Menu style={{ marginTop: "10px" }}>
         <Link route="/">

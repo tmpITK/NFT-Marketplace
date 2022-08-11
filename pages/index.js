@@ -6,14 +6,12 @@ import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
 
 import Layout from "../components/Layout";
 import { Link } from "../routes";
-import { getIpfsUrlFromHash } from "../src/utils";
 
 const ChainAdapter = EthereumAdapter;
 
 class MarketplaceIndex extends Component {
 
   static async getInitialProps(props) {
-
     const nfts = await ChainAdapter.getNftList(process.env.MARKET_ADDRESS);
 
     return {

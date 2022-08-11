@@ -31,6 +31,10 @@ contract Market {
         return ownerMap[owner][index];
     }
 
+    function getNumberOfOwnedNfts(address owner) public view returns(uint) {
+        return ownerMap[owner].length;
+    }
+
 }
 
 

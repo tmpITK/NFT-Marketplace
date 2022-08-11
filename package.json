@@ -7,7 +7,9 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "compileEth": "node ./src/chain/ethereum/compile.js",
+    "deployEth": "node ./src/chain/ethereum/deploy.js"
   },
   "browser": {
     "fs": false,

@@ -7,7 +7,7 @@ class Minter extends Component {
     render() {
         return(
           <Layout>          
-            <h1><MintForm /></h1>
+            <h1><MintForm marketAddress={process.env.MARKET_ADRESS}/></h1>
           </Layout> 
         );
     }

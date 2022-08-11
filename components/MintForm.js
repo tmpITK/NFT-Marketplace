@@ -13,7 +13,7 @@ class MintForm extends Component {
   onSubmit = async (event) => {
     event.preventDefault();
     try{
-        await ChainAdapter.mint(process.env.MARKET_ADDRESS);
+        await ChainAdapter.mint(process.env.MARKET_ADDRESS, this.state.name, this.state.url);
     }catch (err){
         console.error(err);
     }
@@ -21,6 +21,7 @@ class MintForm extends Component {
   };
 
   render() {
+
     return (
     <Grid>
         <Grid.Column width={8}>
