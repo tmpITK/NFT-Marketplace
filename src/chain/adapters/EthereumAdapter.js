@@ -14,13 +14,10 @@ function getNft(address) {
 
 
 async function mint(marketAddress, name, url) {
-    console.log("FOS");
-    console.log(marketAddress);
     const market = getMarket(marketAddress);
 
     console.log("MINTING")
     const accounts = await getUserAddress();
-    console.log(accounts)
     await market.methods.mint(name, url)
                         .send({from: accounts});
     console.log("MINTED");
@@ -48,7 +45,6 @@ async function getNftList(marketAddress) {
             };
         })
     );
-    console.log(nfts);
     return nfts;
 }
 
