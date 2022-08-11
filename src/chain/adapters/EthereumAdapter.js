@@ -60,6 +60,35 @@ async function getUserAddress(){
 }
 
 
+async function getNumberOfOwnedNfts(market, userAddress) {
+    const numberOfNfts = await market.methods.getNumberOfOwnedNfts(userAddress).call();
+    return numberOfNfts;
+}
+
+async function getOwnedNfts(market, userAddress) {
+
+    const numberOfNfts = await getNumberOfOwnedNfts(market, userAddress);
+    
+    const nfts = await Promise.all(
+      Array(parseInt(numberOfNfts))
+        .fill()
+        .map(async (element, index) => {
+            const nftAddress = await market.methods.getOwnedNft(userAddress, index).call();
+            const nft = getNft(nftAddress);
+            const nftInfo = await nft.methods.getNftInfo().call();
+
+            return {
+              name: nftInfo[0],
+              owner: nftInfo[1],
+              ipfsHash: nftInfo[2],
+              address: nftAddress,
+            };
+        })
+    );
+    return nfts;
+}
+
+
 let EthereumAdapter = Interface;
 
 EthereumAdapter.getMarket = getMarket;
@@ -68,5 +97,7 @@ EthereumAdapter.mint = mint;
 EthereumAdapter.getNftList = getNftList;
 EthereumAdapter.getNftImage = getNftImage;
 EthereumAdapter.getUserAddress = getUserAddress;
+EthereumAdapter.getNumberOfOwnedNfts = getNumberOfOwnedNfts;
+EthereumAdapter.getOwnedNfts = getOwnedNfts;
 
 export default EthereumAdapter;
