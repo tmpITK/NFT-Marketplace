@@ -34,6 +34,7 @@ class UserComponent extends Component {
     render() {
         return (
         <Layout>
+            <h2>NFTs of {this.props.userAddress}</h2>
             {this.renderOwnedNfts()}
         </Layout>
         )

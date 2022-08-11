@@ -3,6 +3,7 @@ import { Card, Image, Grid } from "semantic-ui-react";
 import Layout from "../../components/Layout";
 import Nft from "../../src/chain/ethereum/nft";
 import { getIpfsUrlFromHash } from "../../src/utils";
+import { Link } from "../../routes";
 
 class NftShow extends Component {
 
@@ -27,7 +28,11 @@ class NftShow extends Component {
                     <Image src={getIpfsUrlFromHash(ipfsHash)} /> 
                     <Content>
                         <Header>{name}</Header>
-                        <Description>Owned by {owner}</Description>
+                        <Description>Owned by <br/> 
+                                <Link route={`/user/${owner}`}>
+                                    <a>{owner}</a>
+                                </Link>
+                            </Description>
                     </Content>
                 </Card>
             </Layout>
