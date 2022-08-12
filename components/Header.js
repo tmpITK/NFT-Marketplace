@@ -23,6 +23,9 @@ class Header extends Component {
         <Link route="/">
           <a className="item">NFTs for everyone!</a>
         </Link>
+        <Link route="/market">
+          <a className="item">Take me to the NFT Market</a>
+        </Link>
         <Menu.Menu position="right">
           <Link route="/">
             <a className="item">Home</a>
