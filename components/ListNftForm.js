@@ -11,13 +11,21 @@ class ListNftForm extends Component {
         price: "",
     };
 
+  componentDidMount() {
+    this.setState({marketAddress: this.props.marketAddress, nftAddress: this.props.nftAddress});
+  }
+
   onSubmit = async (event) => {
     event.preventDefault();
-    if(price == "") {
+    if(this.state.price == "") {
+        console.log("Null price");
         return;
     }
     
     try{
+        console.log(this.state.nftAddress);
+        console.log(this.state.marketAddress);
+        console.log(this.state.price);
         await ChainAdapter.listNftForSale(this.state.marketAddress, this.state.nftAddress, this.state.price);
     }catch (err){
         console.error(err);
@@ -25,18 +33,20 @@ class ListNftForm extends Component {
 
   };
 
-  render(props) {
-    this.setState({marketAddress: props.marketAddress, nftAddress: props.nftAddress});
+  render() {
     return (
     <Grid>
         <Grid.Column width={8}>
             <Form style={{marginLeft: "10px"}} onSubmit={this.onSubmit}>
                 <Form.Field>
-                    <label>Price of NFT in eth</label>
+                    <label>Price of NFT</label>
                     <Input
                         value={this.state.price}
-                        onChange={(event) => this.setState({ url: event.target.value })}
-                        label="eth price"
+                        onChange={(event) => {
+                            this.setState({price: event.target.value});
+                            console.log(event.target.value);
+                        }}  
+                        label="eth"
                         labelPosition="right"
                     />
                 </Form.Field>
@@ -51,4 +61,4 @@ class ListNftForm extends Component {
     }
 }
 
-export default MintForm;
+export default ListNftForm;

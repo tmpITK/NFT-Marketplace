@@ -66,9 +66,11 @@ async function getNumberOfOwnedNfts(market, userAddress) {
 }
 
 async function getOwnedNfts(market, userAddress) {
-
+    console.log("wot")
     const numberOfNfts = await getNumberOfOwnedNfts(market, userAddress);
+    console.log(numberOfNfts);
     
+    console.log("pics")
     const nfts = await Promise.all(
       Array(parseInt(numberOfNfts))
         .fill()
@@ -85,6 +87,7 @@ async function getOwnedNfts(market, userAddress) {
             };
         })
     );
+    console.log("kiscica")
     return nfts;
 }
 
@@ -92,17 +95,14 @@ async function getListedNfts(marketAddress) {
     const market = await getMarket(marketAddress);
     const numberOfListedNfts = await market.methods.getNumberOfListedNfts().call();
 
-    const nfts = await getNftsIterativelyForAddress(market.methods.listings, numberOfListedNfts, market._address);
-    return nfts;
-}
-
-async function getNftsIterativelyForAddress(nftGetter, numberOfNfts, queryAddress) {
     const nfts = await Promise.all(
-        Array(parseInt(numberOfNfts))
+        Array(parseInt(numberOfListedNfts))
           .fill()
           .map(async (element, index) => {
-              const nftAddress = await nftGetter(queryAddress, index).call();
-              const nft = getNft(nftAddress);
+              const nftListing = await market.methods.listings(index).call();
+              const nftAddress = await market.methods.nftList(nftListing[0]).call();
+
+              const nft = await getNft(nftAddress);
               const nftInfo = await nft.methods.getNftInfo().call();
   
               return {
@@ -119,7 +119,11 @@ async function getNftsIterativelyForAddress(nftGetter, numberOfNfts, queryAddres
 async function listNftForSale(marketAddress, nftAddress, price) {
     const market = getMarket(marketAddress);
     const userAddress = await getUserAddress(marketAddress);
-    await market.methods.listNftForSale(nftAddress, price).send({from: userAddress});
+
+    const nft = await getNft(nftAddress);
+    const nftInfo = await nft.methods.getNftInfo().call();
+
+    await market.methods.listNftForSale(nftAddress, nftInfo[3], web3.utils.toWei(price, "ether")).send({from: userAddress});
 }
 
 

@@ -27,19 +27,17 @@ contract Market {
     }
 
     function addNftToOwner(address nftAddress, address owner) private {
-
-        if(ownerMap[owner].length > 0) {
-            ownerMap[owner].push(nftAddress);
-        }
-        ownerMap[owner] = [nftAddress];
+        ownerMap[owner].push(nftAddress);
         Nft(nftAddress).setOwner(owner);
     }
 
     function removeNftFromOwner(address nftAddress, address owner) private {
         // search for address and remove
-        for(uint i=0; i<ownerMap[owner].length; i++) {
-            if(ownerMap[owner][i] == nftAddress) {
-                delete ownerMap[owner][i];
+        address [] memory ownedNftList = ownerMap[owner];
+        for(uint i=0; i<ownedNftList.length; i++) {
+            if(ownedNftList[i] == nftAddress) {
+                delete ownedNftList[i];
+                ownerMap[owner] = ownedNftList;
                 break;
             }
         }

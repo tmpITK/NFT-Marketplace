@@ -32,7 +32,8 @@ class NftShow extends Component {
                                 <Link route={`/user/${owner}`}>
                                     <a>{owner}</a>
                                 </Link>
-                            </Description>
+                        </Description>
+
                     </Content>
                 </Card>
             </Layout>

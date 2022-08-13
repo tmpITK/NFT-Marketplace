@@ -9,16 +9,23 @@ export function getIpfsUrlFromHash(hash) {
 }
 
 
-export function createCardGroupFromNftList(nftList) {
-
+export function createCardGroupFromNftList(nftList, isOwner=false) {
+    console.log(nftList);
     if (nftList) {
         const cardItems = nftList.map((nft) => {
             return {
                 header: nft.name,
                 description: (
-                <Link route={`/nft/${nft.address}`}>
-                    <a>Details</a>
-                </Link>),
+                <div>
+                    <Link route={`/nft/${nft.address}`}>
+                        <a>Details<br/></a>
+                    </Link>
+                    {isOwner && 
+                        <Link route={`/nft/sell/${nft.address}`}>
+                            <a>Sell</a>
+                        </Link>
+                    }
+                </div>),
                 image: ChainAdapter.getNftImage(nft),
             }
         });

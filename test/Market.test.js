@@ -51,12 +51,19 @@ describe("Market", () => {
         const nftInfo = await mintedNft.methods.getNftInfo().call();
 
         assert(nftInfo[1] == accounts[0]);
+        const numberOfOwnedNfts = await market.methods.getNumberOfOwnedNfts(accounts[0]).call();
+
+        console.log(numberOfOwnedNfts);
+        assert(numberOfOwnedNfts == 1);
         await market.methods.listNftForSale(testNftAddress, 0, 10).send({from: accounts[0], gas:1000000});
         const transferredNftInfo = await mintedNft.methods.getNftInfo().call();
     
         assert(transferredNftInfo[1] == market._address);
         const nftListing = await market.methods.listings(0).call();
         assert(nftListing.price == 10);
+
+        const numberOfOwnedNftsAfterTranfer = await market.methods.getNumberOfOwnedNfts(accounts[0]);
+        assert(numberOfOwnedNftsAfterTranfer == 0);
     });
 
 });
