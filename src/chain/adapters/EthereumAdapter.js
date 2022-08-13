@@ -88,6 +88,34 @@ async function getOwnedNfts(market, userAddress) {
     return nfts;
 }
 
+async function getListedNfts(marketAddress) {
+    const market = await getMarket(marketAddress);
+    const numberOfListedNfts = await market.methods.getNumberOfListedNfts().call();
+
+    const nfts = await getNftsIterativelyForAddress(market.methods.listings, numberOfListedNfts, market._address);
+    return nfts;
+}
+
+async function getNftsIterativelyForAddress(nftGetter, numberOfNfts, queryAddress) {
+    const nfts = await Promise.all(
+        Array(parseInt(numberOfNfts))
+          .fill()
+          .map(async (element, index) => {
+              const nftAddress = await nftGetter(queryAddress, index).call();
+              const nft = getNft(nftAddress);
+              const nftInfo = await nft.methods.getNftInfo().call();
+  
+              return {
+                name: nftInfo[0],
+                owner: nftInfo[1],
+                ipfsHash: nftInfo[2],
+                address: nftAddress,
+              };
+          })
+      );
+      return nfts;
+}
+
 
 let EthereumAdapter = Interface;
 
@@ -99,5 +127,6 @@ EthereumAdapter.getNftImage = getNftImage;
 EthereumAdapter.getUserAddress = getUserAddress;
 EthereumAdapter.getNumberOfOwnedNfts = getNumberOfOwnedNfts;
 EthereumAdapter.getOwnedNfts = getOwnedNfts;
+EthereumAdapter.getListedNfts = getListedNfts;
 
 export default EthereumAdapter;

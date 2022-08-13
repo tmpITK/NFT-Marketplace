@@ -64,6 +64,10 @@ contract Market {
         removeNftFromOwner(nftAddress, msg.sender);
     }
 
+    function getNumberOfListedNfts() public view returns (uint) {
+        return listings.length;
+    }
+
 }
 
 
