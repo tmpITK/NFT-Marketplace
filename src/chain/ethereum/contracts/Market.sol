@@ -13,7 +13,7 @@ contract Market {
     Listing [] public listings;
 
     function mint(string memory name, string memory imgHash) public returns(address){
-        address newNft = address(new Nft(name, msg.sender, imgHash, nextNftIndex));
+        address newNft = address(new Nft(name, imgHash, nextNftIndex, address(this)));
         
         nftList.push(newNft);
         addNftToOwner(newNft, msg.sender);
@@ -32,10 +32,17 @@ contract Market {
             ownerMap[owner].push(nftAddress);
         }
         ownerMap[owner] = [nftAddress];
+        Nft(nftAddress).setOwner(owner);
     }
 
     function removeNftFromOwner(address nftAddress, address owner) private {
         // search for address and remove
+        for(uint i=0; i<ownerMap[owner].length; i++) {
+            if(ownerMap[owner][i] == nftAddress) {
+                delete ownerMap[owner][i];
+                break;
+            }
+        }
     }
 
     function getOwnedNft(address owner, uint index) public view returns (address){
@@ -54,6 +61,7 @@ contract Market {
         listings.push(Listing(index, value));
 
         addNftToOwner(nftAddress, address(this));
+        removeNftFromOwner(nftAddress, msg.sender);
     }
 
 }
@@ -65,13 +73,23 @@ contract Nft {
     address owner;
     string imageHash;
     uint index;
+    address market;
 
-    constructor (string memory assetName, address assetOwner, string memory ipfsHash, uint globalIndex) {
+    modifier onlyOwningMarketCan {
+        require(msg.sender == market);
+        _;
+    }
+
+    constructor (string memory assetName, string memory ipfsHash, uint globalIndex, address owningMarket) {
         name = assetName;
-        owner = assetOwner;
         imageHash = ipfsHash;
         index = globalIndex;
+        market = owningMarket;
     }
+
+    function setOwner(address addressNewOwner) public onlyOwningMarketCan {
+        owner = addressNewOwner;
+    }   
 
     function getNftInfo() public view returns (string memory, address, string memory, uint){
         return (

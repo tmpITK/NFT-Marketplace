@@ -42,6 +42,21 @@ describe("Market", () => {
         const ownedNft = await market.methods.getOwnedNft(accounts[0], 0).call();
 
         assert(testNftAddress == ownedNft);
-    })
+    });
+
+    it("Transfers ownership to market on listing with price", async () => {        
+        await market.methods.mint("testName", "testHash").send({from: accounts[0], gas:1000000});
+        const testNftAddress = await market.methods.nftList(0).call();
+        const mintedNft = await new web3.eth.Contract(compiledNft.abi, testNftAddress);
+        const nftInfo = await mintedNft.methods.getNftInfo().call();
+
+        assert(nftInfo[1] == accounts[0]);
+        await market.methods.listNftForSale(testNftAddress, 0, 10).send({from: accounts[0], gas:1000000});
+        const transferredNftInfo = await mintedNft.methods.getNftInfo().call();
+    
+        assert(transferredNftInfo[1] == market._address);
+        const nftListing = await market.methods.listings(0).call();
+        assert(nftListing.price == 10);
+    });
 
 });
