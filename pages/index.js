@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css'
-
+import { createCardGroupFromNftList } from "../src/utils";
 import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
 
 import Layout from "../components/Layout";
@@ -22,18 +22,8 @@ class MarketplaceIndex extends Component {
   renderNftPreview() {
     const nfts = this.props.nfts;
     const toShowCase = nfts.slice(-3);
-
-    const cardItems = toShowCase.map((nft) => {
-      return {
-        header: nft.name,
-        description: (
-          <Link route={`/nft/${nft.address}`}>
-            <a>Details</a>
-          </Link>),
-        image: ChainAdapter.getNftImage(nft),
-      }
-    });
-    return <Card.Group centered items={cardItems}/>;
+    
+    return createCardGroupFromNftList(toShowCase);
   }
 
   render() {

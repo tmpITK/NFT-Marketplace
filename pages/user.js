@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import EthereumAdapter from '../src/chain/adapters/EthereumAdapter';
 import { Card } from "semantic-ui-react";
 import { Link } from "../routes";
+import { createCardGroupFromNftList } from '../src/utils';
 
 const ChainAdapter = EthereumAdapter;
 
@@ -17,25 +18,11 @@ class UserComponent extends Component {
         };
     }
 
-    renderOwnedNfts() {
-        const cardItems = this.props.ownedNfts.map((nft) => {
-            return {
-                header: nft.name,
-                description: (
-                <Link route={`/nft/${nft.address}`}>
-                    <a>Details</a>
-                </Link>),
-                image: ChainAdapter.getNftImage(nft),
-            }
-        });
-        return <Card.Group centered items={cardItems}/>;
-    }
-
     render() {
         return (
         <Layout>
             <h2>NFTs of {this.props.userAddress}</h2>
-            {this.renderOwnedNfts()}
+            {createCardGroupFromNftList(this.props.ownedNfts)}
         </Layout>
         )
     }
