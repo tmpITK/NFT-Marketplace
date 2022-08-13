@@ -6,9 +6,8 @@ import Layout from "../../components/Layout";
 class ListNftForSale extends Component {
 
     static async getInitialProps(props) {
-        const nftAddress = Nft(props.query.address);
         return {
-            nftAddress: nftAddress,
+            nftAddress: props.query.address,
         }
     }
 

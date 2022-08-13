@@ -118,7 +118,8 @@ async function getNftsIterativelyForAddress(nftGetter, numberOfNfts, queryAddres
 
 async function listNftForSale(marketAddress, nftAddress, price) {
     const market = getMarket(marketAddress);
-    await market.listNftForSale(nftAddress, price);
+    const userAddress = await getUserAddress(marketAddress);
+    await market.methods.listNftForSale(nftAddress, price).send({from: userAddress});
 }
 
 
