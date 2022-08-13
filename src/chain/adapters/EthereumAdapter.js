@@ -116,6 +116,11 @@ async function getNftsIterativelyForAddress(nftGetter, numberOfNfts, queryAddres
       return nfts;
 }
 
+async function listNftForSale(marketAddress, nftAddress, price) {
+    const market = getMarket(marketAddress);
+    await market.listNftForSale(nftAddress, price);
+}
+
 
 let EthereumAdapter = Interface;
 
@@ -128,5 +133,6 @@ EthereumAdapter.getUserAddress = getUserAddress;
 EthereumAdapter.getNumberOfOwnedNfts = getNumberOfOwnedNfts;
 EthereumAdapter.getOwnedNfts = getOwnedNfts;
 EthereumAdapter.getListedNfts = getListedNfts;
+EthereumAdapter.listNftForSale = listNftForSale;
 
 export default EthereumAdapter;

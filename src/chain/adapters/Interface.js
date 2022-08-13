@@ -14,6 +14,7 @@ let AdapterInterface = {
     getNumberOfOwnedNfts: not_defined,
     getOwnedNfts: not_defined,
     getListedNfts: not_defined,
+    listNftForSale: not_defined,
 }
 
 export default AdapterInterface;
