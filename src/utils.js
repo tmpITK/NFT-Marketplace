@@ -1,5 +1,6 @@
-import { Card } from 'semantic-ui-react';
+import { Card, Form, Button } from 'semantic-ui-react';
 import { Link } from '../routes';
+import Buy from '../components/Buy';
 import EthereumAdapter from './chain/adapters/EthereumAdapter';
 
 const ChainAdapter = EthereumAdapter;
@@ -9,7 +10,7 @@ export function getIpfsUrlFromHash(hash) {
 }
 
 
-export function createCardGroupFromNftList(nftList, isOwner=false) {
+export function createCardGroupFromNftList(nftList, isOwner=false, isListing=false) {
     if (nftList) {
         const cardItems = nftList.map((nft) => {
             return {
@@ -23,6 +24,10 @@ export function createCardGroupFromNftList(nftList, isOwner=false) {
                         <Link route={`/nft/sell/${nft.address}`}>
                             <a>Sell</a>
                         </Link>
+                    }
+                    {
+                        isListing &&
+                        <Buy marketAddress={process.env.MARKET_ADDRESS } nftAddress={nft.address}></Buy>
                     }
                 </div>),
                 image: ChainAdapter.getNftImage(nft),

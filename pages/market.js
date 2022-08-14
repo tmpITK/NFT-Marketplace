@@ -18,7 +18,7 @@ class MarketComponent extends Component {
     render() {
         return (
         <Layout>
-            {createCardGroupFromNftList(this.props.nfts)}
+            {createCardGroupFromNftList(this.props.nfts, false, true)}
         </Layout>
         );
     }

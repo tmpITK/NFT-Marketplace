@@ -112,6 +112,20 @@ async function getListedNfts(marketAddress) {
       return nfts;
 }
 
+async function getNftListing(market, nftIndex) {
+    const numListedNfts = await market.methods.getNumberOfListedNfts().call();
+
+    for (let i = 0; i < numListedNfts; i++) {
+        const listing = await market.methods.listings(i).call();
+        if(listing.index == nftIndex && listing.price > 0) {
+            return {
+                listing: listing,
+                listingIndex: i
+            }
+        }
+    }
+}
+
 async function listNftForSale(marketAddress, nftAddress, price) {
     const market = getMarket(marketAddress);
     const userAddress = await getUserAddress(marketAddress);
@@ -120,6 +134,20 @@ async function listNftForSale(marketAddress, nftAddress, price) {
     const nftInfo = await nft.methods.getNftInfo().call();
 
     await market.methods.listNftForSale(nftAddress, nftInfo[3], web3.utils.toWei(price, "ether")).send({from: userAddress});
+}
+
+async function buyNft(marketAddress, nftAddress) {
+    const market = getMarket(marketAddress);
+    const nft = await getNft(nftAddress);
+
+    const nftInfo = await nft.methods.getNftInfo().call();
+    const nftIndex = nftInfo[3];
+
+    const listing = await getNftListing(market, nftIndex);
+    console.log(listing);
+
+    await market.methods.buyNft(nftAddress, listing.listing[1], listing.index);
+
 }
 
 
@@ -135,5 +163,6 @@ EthereumAdapter.getNumberOfOwnedNfts = getNumberOfOwnedNfts;
 EthereumAdapter.getOwnedNfts = getOwnedNfts;
 EthereumAdapter.getListedNfts = getListedNfts;
 EthereumAdapter.listNftForSale = listNftForSale;
+EthereumAdapter.buyNft = buyNft;
 
 export default EthereumAdapter;

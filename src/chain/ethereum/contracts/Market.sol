@@ -99,28 +99,24 @@ contract Market {
         return listings.length;
     }
 
-    function buyNft(address nftAddress, uint nftPrice) public payable {
+    function buyNft(address nftAddress, uint nftPrice, uint listingIndex) public payable {
         require(msg.value == nftPrice);
-        Nft nft = Nft(nftAddress);
-        uint nftIndex = nft.getIndex();
-        Listing memory nftListing = popListingForNft(nftIndex);
+        Listing memory nftListing = popListingForNft(listingIndex);
         removeNftFromOwner(nftAddress, address(this));
         payable(nftListing.seller).transfer(nftPrice);
         addNftToOwner(nftAddress, msg.sender);    
     }
 
-    function popListingForNft(uint nftIndex) private returns(Listing memory) {
+    function popListingForNft(uint listingIndex) private returns(Listing memory) {
         // I am too lazy and too suspicious about this. I think there is a better way
         // to remove items from lists and not track the emptied places. I could do it again
         // but I won't for now.
-        for (uint i=0; i < listings.length; i++) {
-            if(listings[i].index == nftIndex) {
-                Listing memory foundListing = listings[i];
-                delete listings[i];
-                return foundListing;
-            }
-        }
-        return Listing(0, 0, address(0));
+
+        Listing memory nftListing = listings[listingIndex];
+        delete listings[listingIndex];
+        return nftListing;
+
+
     }
 
 }

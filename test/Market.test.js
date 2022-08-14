@@ -121,7 +121,7 @@ describe("Market", () => {
         await market.methods.mint("testName1", "testHash1").send({from: accounts[0], gas:1000000});
         const testNftAddress = await market.methods.nftList(0).call();
         await market.methods.listNftForSale(testNftAddress, 0, 10).send({from: accounts[0], gas:1000000});
-        await market.methods.buyNft(testNftAddress, 10).send({from: accounts[1], value:10, gas:1000000});
+        await market.methods.buyNft(testNftAddress, 10, 0).send({from: accounts[1], value:10, gas:1000000});
         const boughtNft = await new web3.eth.Contract(compiledNft.abi, testNftAddress);
         const nftOwner = await boughtNft.methods.getOwner().call();
         assert(nftOwner == accounts[1]);
