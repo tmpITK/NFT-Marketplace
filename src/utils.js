@@ -10,7 +10,6 @@ export function getIpfsUrlFromHash(hash) {
 
 
 export function createCardGroupFromNftList(nftList, isOwner=false) {
-    console.log(nftList);
     if (nftList) {
         const cardItems = nftList.map((nft) => {
             return {

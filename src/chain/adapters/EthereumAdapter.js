@@ -66,11 +66,8 @@ async function getNumberOfOwnedNfts(market, userAddress) {
 }
 
 async function getOwnedNfts(market, userAddress) {
-    console.log("wot")
     const numberOfNfts = await getNumberOfOwnedNfts(market, userAddress);
-    console.log(numberOfNfts);
     
-    console.log("pics")
     const nfts = await Promise.all(
       Array(parseInt(numberOfNfts))
         .fill()
@@ -87,7 +84,6 @@ async function getOwnedNfts(market, userAddress) {
             };
         })
     );
-    console.log("kiscica")
     return nfts;
 }
 

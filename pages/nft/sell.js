@@ -6,7 +6,6 @@ import Layout from "../../components/Layout";
 class ListNftForSale extends Component {
 
     static async getInitialProps(props) {
-        console.log(process.env.MARKET_ADRESS);
         return {
             nftAddress: props.query.address,
         }

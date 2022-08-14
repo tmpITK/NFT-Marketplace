@@ -10,11 +10,8 @@ const ChainAdapter = EthereumAdapter;
 class UserComponent extends Component {
 
     static async getInitialProps(props) {
-        console.log(1)
         const market = await ChainAdapter.getMarket(process.env.MARKET_ADDRESS);
-        console.log(2)
         const ownedNfts = await ChainAdapter.getOwnedNfts(market, props.query.userAddress);
-        console.log(3)
         return {
             userAddress: props.query.userAddress,
             ownedNfts: ownedNfts
@@ -22,7 +19,6 @@ class UserComponent extends Component {
     }
 
     render() {
-        console.log(4)
         return (
         <Layout>
             <h2>NFTs of {this.props.userAddress}</h2>

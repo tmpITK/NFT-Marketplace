@@ -18,14 +18,10 @@ class ListNftForm extends Component {
   onSubmit = async (event) => {
     event.preventDefault();
     if(this.state.price == "") {
-        console.log("Null price");
         return;
     }
     
     try{
-        console.log(this.state.nftAddress);
-        console.log(this.state.marketAddress);
-        console.log(this.state.price);
         await ChainAdapter.listNftForSale(this.state.marketAddress, this.state.nftAddress, this.state.price);
     }catch (err){
         console.error(err);
@@ -44,7 +40,6 @@ class ListNftForm extends Component {
                         value={this.state.price}
                         onChange={(event) => {
                             this.setState({price: event.target.value});
-                            console.log(event.target.value);
                         }}  
                         label="eth"
                         labelPosition="right"
