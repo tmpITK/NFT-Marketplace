@@ -79,4 +79,42 @@ describe("Market", () => {
         });
     });
 
+    it("Puts the new nfts into the first available spot", async () => {
+        await market.methods.mint("testName1", "testHash1").send({from: accounts[0], gas:1000000});
+        await market.methods.mint("testName2", "testHash2").send({from: accounts[0], gas:1000000});
+        await market.methods.mint("testName3", "testHash3").send({from: accounts[0], gas:1000000});
+        const testNftAddress1 = await market.methods.nftList(0).call();
+        const testNftAddress2 = await market.methods.nftList(1).call();
+        const testNftAddress3 = await market.methods.nftList(2).call();
+
+        const userNftStorageInfoBeforeTransfer = await market.methods.userNftStorageInfoMap(accounts[0]).call();
+    
+        assert(userNftStorageInfoBeforeTransfer.nextLoc == 3)
+
+        await market.methods.listNftForSale(testNftAddress2, 1, 10).send({from: accounts[0], gas:1000000});
+        const userNftStorageInfo = await market.methods.userNftStorageInfoMap(accounts[0]).call();
+    
+        assert(userNftStorageInfo.nextLoc == 1)
+        await market.methods.mint("testName4", "testHash4").send({from: accounts[0], gas:1000000});
+        const userNftStorageInfoAfterMintig = await market.methods.userNftStorageInfoMap(accounts[0]).call();
+    
+        const testNftAddress4 = await market.methods.getOwnedNft(accounts[0], 1).call();
+        const mintedNft = await new web3.eth.Contract(compiledNft.abi, testNftAddress4);
+        const nftInfo = await mintedNft.methods.getNftInfo().call();
+
+        const expectedNft4Info = {
+            '0': "testName4",
+            '1': accounts[0],
+            '2': "testHash4",
+            '3': '3'
+        }
+
+        assert(nftInfo[0] == expectedNft4Info[0]);
+        assert(nftInfo[1] == expectedNft4Info[1]);
+        assert(nftInfo[2] == expectedNft4Info[2]);
+        assert(nftInfo[3] == expectedNft4Info[3]);
+
+        assert(userNftStorageInfoAfterMintig.nextLoc == 3)
+    })
+
 });
