@@ -5,6 +5,7 @@ contract Market {
     struct Listing {
         uint index;
         uint price;
+        address seller;
     }
 
     struct userNftStorageInfo {
@@ -57,7 +58,6 @@ contract Market {
                 return i;
             }
         }
-        // fallback in case of something wrong
         return ownerMap[owner].length;
     }
 
@@ -78,7 +78,7 @@ contract Market {
 
     function getOwnedNft(address owner, uint index) public view returns (address){
         require(ownerMap[owner].length > 0);
-        // I will call this only so I will have to chekc for size beforehand
+        // I will call this only so I will have to check for size beforehand
         return ownerMap[owner][index];
     }
 
@@ -89,7 +89,7 @@ contract Market {
     function listNftForSale(address nftAddress, uint index, uint value) public {
         require(index < nftList.length);
         //require(listings[nftAddress].price == 0); // it is not yet up for sale
-        listings.push(Listing(index, value));
+        listings.push(Listing(index, value, msg.sender));
 
         addNftToOwner(nftAddress, address(this));
         removeNftFromOwner(nftAddress, msg.sender);
@@ -99,8 +99,31 @@ contract Market {
         return listings.length;
     }
 
-}
+    function buyNft(address nftAddress, uint nftPrice) public payable {
+        require(msg.value == nftPrice);
+        Nft nft = Nft(nftAddress);
+        uint nftIndex = nft.getIndex();
+        Listing memory nftListing = popListingForNft(nftIndex);
+        removeNftFromOwner(nftAddress, address(this));
+        payable(nftListing.seller).transfer(nftPrice);
+        addNftToOwner(nftAddress, msg.sender);    
+    }
 
+    function popListingForNft(uint nftIndex) private returns(Listing memory) {
+        // I am too lazy and too suspicious about this. I think there is a better way
+        // to remove items from lists and not track the emptied places. I could do it again
+        // but I won't for now.
+        for (uint i=0; i < listings.length; i++) {
+            if(listings[i].index == nftIndex) {
+                Listing memory foundListing = listings[i];
+                delete listings[i];
+                return foundListing;
+            }
+        }
+        return Listing(0, 0, address(0));
+    }
+
+}
 
 contract Nft {
 
@@ -124,7 +147,15 @@ contract Nft {
 
     function setOwner(address addressNewOwner) public onlyOwningMarketCan {
         owner = addressNewOwner;
-    }   
+    }
+
+    function getIndex() public view returns(uint) {
+        return index;
+    }
+
+    function getOwner() public view returns(address) {
+        return owner;
+    }    
 
     function getNftInfo() public view returns (string memory, address, string memory, uint){
         return (
