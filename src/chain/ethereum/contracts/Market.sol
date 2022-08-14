@@ -7,16 +7,22 @@ contract Market {
         uint price;
     }
 
+    struct userNftStorageInfo {
+        uint nextLoc;
+        uint numOwnedNfts;
+    }
+
     address [] public nftList;
     mapping(address => address []) public ownerMap;
     uint nextNftIndex = 0;
     Listing [] public listings;
+    mapping(address => userNftStorageInfo) public userNftStorageInfoMap;
 
     function mint(string memory name, string memory imgHash) public returns(address){
         address newNft = address(new Nft(name, imgHash, nextNftIndex, address(this)));
+        addNftToOwner(newNft, msg.sender);
         
         nftList.push(newNft);
-        addNftToOwner(newNft, msg.sender);
         nextNftIndex +=1;
 
         return newNft;
@@ -27,8 +33,32 @@ contract Market {
     }
 
     function addNftToOwner(address nftAddress, address owner) private {
-        ownerMap[owner].push(nftAddress);
+        userNftStorageInfo memory userStorageInfo = userNftStorageInfoMap[owner];
+
+        if (userStorageInfo.numOwnedNfts == userStorageInfo.nextLoc) {
+            ownerMap[owner].push(nftAddress);
+            userStorageInfo.nextLoc += 1;
+        } else {
+            ownerMap[owner][userStorageInfo.nextLoc] = nftAddress;
+            userStorageInfo.nextLoc = getNextEmptyLocationForNft(owner);
+        }
+
+        userStorageInfo.numOwnedNfts += 1;
+        userNftStorageInfoMap[owner] = userStorageInfo;
         Nft(nftAddress).setOwner(owner);
+    }
+
+    function getNextEmptyLocationForNft(address owner) private view returns(uint) {
+        address nullAddress = address(0);
+        userNftStorageInfo memory userStorageInfo = userNftStorageInfoMap[owner];
+
+        for (uint i = 0; i < ownerMap[owner].length; i++) {
+            if (ownerMap[owner][i] == nullAddress && i != userStorageInfo.nextLoc) {
+                return i;
+            }
+        }
+        // fallback in case of something wrong
+        return ownerMap[owner].length;
     }
 
     function removeNftFromOwner(address nftAddress, address owner) private {
@@ -38,6 +68,9 @@ contract Market {
             if(ownedNftList[i] == nftAddress) {
                 delete ownedNftList[i];
                 ownerMap[owner] = ownedNftList;
+
+                userNftStorageInfoMap[owner].nextLoc = i;
+                userNftStorageInfoMap[owner].numOwnedNfts -= 1;
                 break;
             }
         }
@@ -50,7 +83,7 @@ contract Market {
     }
 
     function getNumberOfOwnedNfts(address owner) public view returns(uint) {
-        return ownerMap[owner].length;
+        return userNftStorageInfoMap[owner].numOwnedNfts;
     }
 
     function listNftForSale(address nftAddress, uint index, uint value) public {

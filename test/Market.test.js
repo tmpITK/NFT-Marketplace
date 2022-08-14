@@ -44,26 +44,34 @@ describe("Market", () => {
         assert(testNftAddress == ownedNft);
     });
 
-    it("Transfers ownership to market on listing with price", async () => {        
-        await market.methods.mint("testName", "testHash").send({from: accounts[0], gas:1000000});
-        const testNftAddress = await market.methods.nftList(0).call();
-        const mintedNft = await new web3.eth.Contract(compiledNft.abi, testNftAddress);
-        const nftInfo = await mintedNft.methods.getNftInfo().call();
+    [0,1,2].forEach(function (index) {
+        it(`Transfers correctly ownership of nft at ${index}`, async () => {
+            await market.methods.mint("testName1", "testHash1").send({from: accounts[0], gas:1000000});
+            await market.methods.mint("testName2", "testHash2").send({from: accounts[0], gas:1000000});
+            await market.methods.mint("testName3", "testHash3").send({from: accounts[0], gas:1000000});
 
-        assert(nftInfo[1] == accounts[0]);
-        const numberOfOwnedNfts = await market.methods.getNumberOfOwnedNfts(accounts[0]).call();
-
-        console.log(numberOfOwnedNfts);
-        assert(numberOfOwnedNfts == 1);
-        await market.methods.listNftForSale(testNftAddress, 0, 10).send({from: accounts[0], gas:1000000});
-        const transferredNftInfo = await mintedNft.methods.getNftInfo().call();
+            const testNftAddress = await market.methods.nftList(index).call();
+            const mintedNft = await new web3.eth.Contract(compiledNft.abi, testNftAddress);
+            const nftInfo = await mintedNft.methods.getNftInfo().call();
     
-        assert(transferredNftInfo[1] == market._address);
-        const nftListing = await market.methods.listings(0).call();
-        assert(nftListing.price == 10);
+            assert(nftInfo[1] == accounts[0]);
+            const numberOfOwnedNfts = await market.methods.getNumberOfOwnedNfts(accounts[0]).call();
 
-        const numberOfOwnedNftsAfterTranfer = await market.methods.getNumberOfOwnedNfts(accounts[0]);
-        assert(numberOfOwnedNftsAfterTranfer == 0);
+            assert(numberOfOwnedNfts == 3);
+            await market.methods.listNftForSale(testNftAddress, 0, 10).send({from: accounts[0], gas:1000000});
+            const transferredNftInfo = await mintedNft.methods.getNftInfo().call();
+            assert(transferredNftInfo[1] == market._address);
+
+            const nftListing = await market.methods.listings(0).call();
+            assert(nftListing.price == 10);
+
+            const numberOfOwnedNftsAfterTranfer = await market.methods.getNumberOfOwnedNfts(accounts[0]).call();
+            assert(numberOfOwnedNftsAfterTranfer == 2);
+
+            const userNftStorageInfo = await market.methods.userNftStorageInfoMap(accounts[0]).call();
+    
+            assert(userNftStorageInfo.nextLoc == index)
+        });
     });
 
 });
