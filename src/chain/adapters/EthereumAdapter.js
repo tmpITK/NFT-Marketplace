@@ -17,9 +17,9 @@ async function mint(marketAddress, name, url) {
     const market = getMarket(marketAddress);
 
     console.log("MINTING")
-    const accounts = await getUserAddress();
+    const userAccount = await getUserAddress();
     await market.methods.mint(name, url)
-                        .send({from: accounts});
+                        .send({from: userAccount});
     console.log("MINTED");
 }
 
@@ -146,8 +146,7 @@ async function buyNft(marketAddress, nftAddress) {
     const listing = await getNftListing(market, nftIndex);
 
     const userAddress = await getUserAddress();
-
-    await market.methods.buyNft(nftAddress, listing.listing[1], listing.index).send({from: userAddress, value: listing.listing[1], gas:1000000});
+    await market.methods.buyNft(nftAddress, listing.listing[1], listing.listingIndex).send({from: userAddress, value: listing.listing[1], gas:1000000});
 
 }
 

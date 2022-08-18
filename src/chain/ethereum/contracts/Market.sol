@@ -89,10 +89,10 @@ contract Market {
     function listNftForSale(address nftAddress, uint index, uint value) public {
         require(index < nftList.length);
         //require(listings[nftAddress].price == 0); // it is not yet up for sale
-        listings.push(Listing(index, value, msg.sender));
+        listings.push(Listing(index, value, tx.origin));
 
         addNftToOwner(nftAddress, address(this));
-        removeNftFromOwner(nftAddress, msg.sender);
+        removeNftFromOwner(nftAddress, tx.origin);
     }
 
     function getNumberOfListedNfts() public view returns (uint) {
@@ -102,9 +102,9 @@ contract Market {
     function buyNft(address nftAddress, uint nftPrice, uint listingIndex) public payable {
         require(msg.value == nftPrice);
         Listing memory nftListing = popListingForNft(listingIndex);
-        //removeNftFromOwner(nftAddress, address(this));
-        //payable(nftListing.seller).transfer(nftPrice);
-        //addNftToOwner(nftAddress, msg.sender);    
+        removeNftFromOwner(nftAddress, address(this));
+        payable(nftListing.seller).transfer(nftPrice);
+        addNftToOwner(nftAddress, tx.origin);    
     }
 
     function popListingForNft(uint listingIndex) private returns(Listing memory) {

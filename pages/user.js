@@ -11,6 +11,8 @@ class UserComponent extends Component {
 
     static async getInitialProps(props) {
         const market = await ChainAdapter.getMarket(process.env.MARKET_ADDRESS);
+        console.log("user")
+        console.log(market._address);
         const ownedNfts = await ChainAdapter.getOwnedNfts(market, props.query.userAddress);
         return {
             userAddress: props.query.userAddress,
