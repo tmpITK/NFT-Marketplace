@@ -102,9 +102,9 @@ contract Market {
     function buyNft(address nftAddress, uint nftPrice, uint listingIndex) public payable {
         require(msg.value == nftPrice);
         Listing memory nftListing = popListingForNft(listingIndex);
-        removeNftFromOwner(nftAddress, address(this));
-        payable(nftListing.seller).transfer(nftPrice);
-        addNftToOwner(nftAddress, msg.sender);    
+        //removeNftFromOwner(nftAddress, address(this));
+        //payable(nftListing.seller).transfer(nftPrice);
+        //addNftToOwner(nftAddress, msg.sender);    
     }
 
     function popListingForNft(uint listingIndex) private returns(Listing memory) {

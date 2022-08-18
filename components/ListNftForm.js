@@ -9,6 +9,7 @@ class ListNftForm extends Component {
         marketAddress: "",
         nftAddress: "",
         price: "",
+        loading: false,
     };
 
   componentDidMount() {
@@ -17,6 +18,7 @@ class ListNftForm extends Component {
 
   onSubmit = async (event) => {
     event.preventDefault();
+    this.setState({loading: true});
     if(this.state.price == "") {
         return;
     }
@@ -26,6 +28,7 @@ class ListNftForm extends Component {
     }catch (err){
         console.error(err);
     }
+    this.setState({loading:false});
 
   };
 
@@ -45,7 +48,7 @@ class ListNftForm extends Component {
                         labelPosition="right"
                     />
                 </Form.Field>
-                <Button primary>
+                <Button loading={this.state.loading} primary>
                     List nft
                 </Button>
             </Form>

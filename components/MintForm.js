@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
+import { translateJsonCompilerOutput } from "solc/translate";
 import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
 
 const ChainAdapter = EthereumAdapter;
@@ -8,15 +9,18 @@ class MintForm extends Component {
   state = {
     name: "",
     url: "",
+    loading: false,
   };
 
   onSubmit = async (event) => {
     event.preventDefault();
+    this.setState({loading: true});
     try{
         await ChainAdapter.mint(process.env.MARKET_ADDRESS, this.state.name, this.state.url);
     }catch (err){
         console.error(err);
     }
+    this.setState({loading: false});
 
   };
 
@@ -44,7 +48,7 @@ class MintForm extends Component {
                         labelPosition="right"
                     />
                 </Form.Field>
-                <Button primary>
+                <Button loading={this.state.loading} primary>
                     Mint!
                 </Button>
             </Form>

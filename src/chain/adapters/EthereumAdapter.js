@@ -127,7 +127,7 @@ async function getNftListing(market, nftIndex) {
 }
 
 async function listNftForSale(marketAddress, nftAddress, price) {
-    const market = getMarket(marketAddress);
+    const market = await getMarket(marketAddress);
     const userAddress = await getUserAddress(marketAddress);
 
     const nft = await getNft(nftAddress);
@@ -137,16 +137,17 @@ async function listNftForSale(marketAddress, nftAddress, price) {
 }
 
 async function buyNft(marketAddress, nftAddress) {
-    const market = getMarket(marketAddress);
+    const market = await getMarket(marketAddress);
     const nft = await getNft(nftAddress);
 
     const nftInfo = await nft.methods.getNftInfo().call();
     const nftIndex = nftInfo[3];
 
     const listing = await getNftListing(market, nftIndex);
-    console.log(listing);
 
-    await market.methods.buyNft(nftAddress, listing.listing[1], listing.index);
+    const userAddress = await getUserAddress();
+
+    await market.methods.buyNft(nftAddress, listing.listing[1], listing.index).send({from: userAddress, value: listing.listing[1], gas:1000000});
 
 }
 
