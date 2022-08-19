@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
-import { translateJsonCompilerOutput } from "solc/translate";
 import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
+import { Router } from '../routes';
 
 const ChainAdapter = EthereumAdapter;
 
@@ -17,6 +17,7 @@ class MintForm extends Component {
     this.setState({loading: true});
     try{
         await ChainAdapter.mint(process.env.MARKET_ADDRESS, this.state.name, this.state.url);
+        Router.replaceRoute("/nft/new")
     }catch (err){
         console.error(err);
     }

@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { Form, Button } from 'semantic-ui-react';
 import EthereumAdapter from '../src/chain/adapters/EthereumAdapter';
+import { Router } from '../routes';
 
 const ChainAdapter = EthereumAdapter;
 
@@ -15,9 +16,8 @@ class Buy extends Component {
         event.preventDefault();
         this.setState({loading: true});
         try{
-            console.log(this.props.marketAddress);
-            console.log(this.props.nftAddress);
             await ChainAdapter.buyNft(this.props.marketAddress, this.props.nftAddress);
+            Router.pushRoute(`/nft/${this.props.nftAddress}`);
         }catch (err){
             console.error(err);
         }

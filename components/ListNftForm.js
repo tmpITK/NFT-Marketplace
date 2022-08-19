@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
 import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
+import { Router } from '../routes';
 
 const ChainAdapter = EthereumAdapter;
 
@@ -25,6 +26,7 @@ class ListNftForm extends Component {
     
     try{
         await ChainAdapter.listNftForSale(this.state.marketAddress, this.state.nftAddress, this.state.price);
+        Router.replaceRoute("/market");
     }catch (err){
         console.error(err);
     }
