@@ -90,12 +90,19 @@ async function getOwnedNfts(market, userAddress) {
 async function getListedNfts(marketAddress) {
     const market = await getMarket(marketAddress);
     const numberOfListedNfts = await market.methods.getNumberOfListedNfts().call();
-
+    console.log('num listed', numberOfListedNfts);
     const nfts = await Promise.all(
         Array(parseInt(numberOfListedNfts))
           .fill()
           .map(async (element, index) => {
               const nftListing = await market.methods.listings(index).call();
+
+              if(nftListing[2] == "0x0000000000000000000000000000000000000000"){
+                  
+                return {
+                    name: null,
+                };
+              }
               const nftAddress = await market.methods.nftList(nftListing[0]).call();
 
               const nft = await getNft(nftAddress);
@@ -109,11 +116,13 @@ async function getListedNfts(marketAddress) {
               };
           })
       );
-      return nfts;
+      const filteredNfts = nfts.filter(nft => nft.name != null);
+      return filteredNfts;
 }
 
 async function getNftListing(market, nftIndex) {
     const numListedNfts = await market.methods.getNumberOfListedNfts().call();
+
 
     for (let i = 0; i < numListedNfts; i++) {
         const listing = await market.methods.listings(i).call();
@@ -129,25 +138,47 @@ async function getNftListing(market, nftIndex) {
 async function listNftForSale(marketAddress, nftAddress, price) {
     const market = await getMarket(marketAddress);
     const userAddress = await getUserAddress(marketAddress);
+    console.log("userAddress", userAddress);
 
     const nft = await getNft(nftAddress);
-    const nftInfo = await nft.methods.getNftInfo().call();
+    let nftInfo = await nft.methods.getNftInfo().call();
+    console.log("nftInfo", nftInfo);
 
     await market.methods.listNftForSale(nftAddress, nftInfo[3], web3.utils.toWei(price, "ether")).send({from: userAddress});
+    nftInfo = await nft.methods.getNftInfo().call();
+    console.log("nftInfo", nftInfo);
 }
 
 async function buyNft(marketAddress, nftAddress) {
+
+
     const market = await getMarket(marketAddress);
     const nft = await getNft(nftAddress);
 
-    const nftInfo = await nft.methods.getNftInfo().call();
-    const nftIndex = nftInfo[3];
+    let nftInfo = await nft.methods.getNftInfo().call();
+    let nftIndex = nftInfo[3];
+    console.log("nftInfo", nftInfo);
 
-    const listing = await getNftListing(market, nftIndex);
+    let listing = await getNftListing(market, nftIndex);
+    console.log("listing", listing);
 
     const userAddress = await getUserAddress();
+    console.log("userAddress", userAddress);
+    let num = await market.methods.getNumberOfOwnedNfts(userAddress).call();
+    console.log("num", num);
+    console.log("firstNft", firstNft);  
     await market.methods.buyNft(nftAddress, listing.listing[1], listing.listingIndex).send({from: userAddress, value: listing.listing[1], gas:1000000});
+    
 
+    nftInfo = await nft.methods.getNftInfo().call();
+    console.log("nftInfo", nftInfo);
+    
+    let firstNft = await market.methods.getOwnedNft(userAddress, 0).call();
+    num = await market.methods.getNumberOfOwnedNfts(userAddress).call();
+    listing = await getNftListing(market, nftIndex);
+    console.log("listing", listing);
+    console.log("num", num);
+    console.log("firstNft", firstNft);  
 }
 
 

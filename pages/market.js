@@ -8,6 +8,8 @@ const ChainAdapter = EthereumAdapter;
 
 class MarketComponent extends Component {
 
+    state = {nfts: ''}
+
     static async getInitialProps() {
         const nfts = await ChainAdapter.getListedNfts(process.env.MARKET_ADDRESS);
         return {
