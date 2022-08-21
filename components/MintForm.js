@@ -10,7 +10,7 @@ class MintForm extends Component {
     name: "",
     url: "",
     loading: false,
-    error: "",
+    errorMessage: "",
   };
 
   onSubmit = async (event) => {
@@ -18,10 +18,10 @@ class MintForm extends Component {
     this.setState({loading: true});
     try{
         const nftAddress = await ChainAdapter.mint(process.env.MARKET_ADDRESS, this.state.name, this.state.url);
-        this.setState({error: ""});
+        this.setState({errorMessage: ""});
         Router.pushRoute(`/nft/${nftAddress}`);
     }catch (err){
-        this.setState({error: err.message});
+        this.setState({errorMessage: err.message});
     }
     this.setState({loading: false});
 

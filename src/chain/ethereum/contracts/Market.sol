@@ -36,7 +36,7 @@ contract Market {
     function addNftToOwner(address nftAddress, address owner) private {
         userNftStorageInfo memory userStorageInfo = userNftStorageInfoMap[owner];
 
-        if (userStorageInfo.numOwnedNfts == userStorageInfo.nextLoc && ownerMap[owner].length == 0) {
+        if (userStorageInfo.numOwnedNfts == ownerMap[owner].length) {
             ownerMap[owner].push(nftAddress);
             userStorageInfo.nextLoc += 1;
         } else {

@@ -11,6 +11,7 @@ class ListNftForm extends Component {
         nftAddress: "",
         price: "",
         loading: false,
+        errorMessage: ""
     };
 
   componentDidMount() {
@@ -22,10 +23,10 @@ class ListNftForm extends Component {
     this.setState({loading: true});
     try{
         await ChainAdapter.listNftForSale(this.state.marketAddress, this.state.nftAddress, this.state.price);
-        this.setState({error: ""});
+        this.setState({errorMessage: ""});
         Router.replaceRoute("/market");
     }catch (err){
-        this.setState({error: err.message});
+        this.setState({errorMessage: err.message});
     }
     this.setState({loading:false});
 

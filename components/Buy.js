@@ -10,7 +10,7 @@ class Buy extends Component {
 
     state = {
         loading: false,
-        error: "",
+        errorMessage: "",
     }
 
     onSubmit = async (event) => {
@@ -18,10 +18,10 @@ class Buy extends Component {
         this.setState({loading: true});
         try{
             await ChainAdapter.buyNft(this.props.marketAddress, this.props.nftAddress);
-            this.setState({error: ""});
+            this.setState({errorMessage: ""});
             Router.pushRoute(`/nft/${this.props.nftAddress}`);
         }catch (err){
-            this.setState({error: err.message});
+            this.setState({errorMessage: err.message});
         }
         this.setState({loading: false});
     }
