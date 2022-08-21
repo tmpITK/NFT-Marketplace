@@ -18,10 +18,9 @@ async function mint(marketAddress, name, url) {
 
     console.log("MINTING")
     const userAccount = await getUserAddress();
-    const nftAddress = await market.methods.mint(name, url)
+    await market.methods.mint(name, url)
                         .send({from: userAccount});
     console.log("MINTED");
-    return nftAddress;
 }
 
 

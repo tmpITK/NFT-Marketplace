@@ -25,8 +25,6 @@ contract Market {
         
         nftList.push(newNft);
         nextNftIndex +=1;
-
-        return newNft;
     }
 
     function getNumberOfNfts() public view returns(uint) {
