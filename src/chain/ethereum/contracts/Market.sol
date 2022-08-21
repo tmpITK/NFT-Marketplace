@@ -36,7 +36,7 @@ contract Market {
     function addNftToOwner(address nftAddress, address owner) private {
         userNftStorageInfo memory userStorageInfo = userNftStorageInfoMap[owner];
 
-        if (userStorageInfo.numOwnedNfts == userStorageInfo.nextLoc) {
+        if (userStorageInfo.numOwnedNfts == userStorageInfo.nextLoc && ownerMap[owner].length == 0) {
             ownerMap[owner].push(nftAddress);
             userStorageInfo.nextLoc += 1;
         } else {
@@ -64,14 +64,19 @@ contract Market {
     function removeNftFromOwner(address nftAddress, address owner) private {
         // search for address and remove
         address [] memory ownedNftList = ownerMap[owner];
+        int indexOfFirstEmpty = -1;
         for(uint i=0; i<ownedNftList.length; i++) {
             if(ownedNftList[i] == nftAddress) {
                 delete ownedNftList[i];
                 ownerMap[owner] = ownedNftList;
-
-                userNftStorageInfoMap[owner].nextLoc = i;
+                if (indexOfFirstEmpty == -1) {
+                    userNftStorageInfoMap[owner].nextLoc = i;
+                }
                 userNftStorageInfoMap[owner].numOwnedNfts -= 1;
                 break;
+            }
+            if (indexOfFirstEmpty == -1) {
+                userNftStorageInfoMap[owner].nextLoc = i;
             }
         }
     }

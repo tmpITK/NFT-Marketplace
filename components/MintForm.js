@@ -17,9 +17,9 @@ class MintForm extends Component {
     event.preventDefault();
     this.setState({loading: true});
     try{
-        await ChainAdapter.mint(process.env.MARKET_ADDRESS, this.state.name, this.state.url);
+        const nftAddress = await ChainAdapter.mint(process.env.MARKET_ADDRESS, this.state.name, this.state.url);
         this.setState({error: ""});
-        Router.replaceRoute("/nft/new");
+        Router.pushRoute(`/nft/${nftAddress}`);
     }catch (err){
         this.setState({error: err.message});
     }

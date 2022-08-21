@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Input, Grid, Button } from "semantic-ui-react";
+import { Form, Input, Grid, Button, Message } from "semantic-ui-react";
 import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
 import { Router } from '../routes';
 
