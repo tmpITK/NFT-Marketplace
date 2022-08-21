@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Input, Grid, Button } from "semantic-ui-react";
+import { Form, Input, Grid, Button, Message } from "semantic-ui-react";
 import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
 import { Router } from '../routes';
 
@@ -10,6 +10,7 @@ class MintForm extends Component {
     name: "",
     url: "",
     loading: false,
+    error: "",
   };
 
   onSubmit = async (event) => {
@@ -17,9 +18,10 @@ class MintForm extends Component {
     this.setState({loading: true});
     try{
         await ChainAdapter.mint(process.env.MARKET_ADDRESS, this.state.name, this.state.url);
-        Router.replaceRoute("/nft/new")
+        this.setState({error: ""});
+        Router.replaceRoute("/nft/new");
     }catch (err){
-        console.error(err);
+        this.setState({error: err.message});
     }
     this.setState({loading: false});
 
@@ -30,7 +32,7 @@ class MintForm extends Component {
     return (
     <Grid>
         <Grid.Column width={8}>
-            <Form style={{marginLeft: "10px"}} onSubmit={this.onSubmit}>
+            <Form style={{marginLeft: "10px"}} onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
                 <Form.Field>
                     <label>Name of Nft</label>
                     <Input
@@ -49,6 +51,8 @@ class MintForm extends Component {
                         labelPosition="right"
                     />
                 </Form.Field>
+                <Message error header="Oops!" content={this.state.errorMessage} />
+
                 <Button loading={this.state.loading} primary>
                     Mint!
                 </Button>

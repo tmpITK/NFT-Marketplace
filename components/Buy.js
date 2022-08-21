@@ -10,6 +10,7 @@ class Buy extends Component {
 
     state = {
         loading: false,
+        error: "",
     }
 
     onSubmit = async (event) => {
@@ -17,16 +18,18 @@ class Buy extends Component {
         this.setState({loading: true});
         try{
             await ChainAdapter.buyNft(this.props.marketAddress, this.props.nftAddress);
+            this.setState({error: ""});
             Router.pushRoute(`/nft/${this.props.nftAddress}`);
         }catch (err){
-            console.error(err);
+            this.setState({error: err.message});
         }
         this.setState({loading: false});
     }
 
     render() {
         return(
-            <Form style={{marginLeft: "10px"}} onSubmit={this.onSubmit}>
+            <Form style={{marginLeft: "10px"}} onSubmit={this.onSubmit}  error={!!this.state.errorMessage}>
+                <Message error header="Oops!" content={this.state.errorMessage} />
                 <Button loading={this.state.loading} primary>
                     Buy me
                 </Button>

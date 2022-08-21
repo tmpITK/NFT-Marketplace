@@ -20,15 +20,12 @@ class ListNftForm extends Component {
   onSubmit = async (event) => {
     event.preventDefault();
     this.setState({loading: true});
-    if(this.state.price == "") {
-        return;
-    }
-    
     try{
         await ChainAdapter.listNftForSale(this.state.marketAddress, this.state.nftAddress, this.state.price);
+        this.setState({error: ""});
         Router.replaceRoute("/market");
     }catch (err){
-        console.error(err);
+        this.setState({error: err.message});
     }
     this.setState({loading:false});
 
@@ -38,7 +35,7 @@ class ListNftForm extends Component {
     return (
     <Grid>
         <Grid.Column width={8}>
-            <Form style={{marginLeft: "10px"}} onSubmit={this.onSubmit}>
+            <Form style={{marginLeft: "10px"}} onSubmit={this.onSubmit}  error={!!this.state.errorMessage}>
                 <Form.Field>
                     <label>Price of NFT</label>
                     <Input
@@ -50,6 +47,7 @@ class ListNftForm extends Component {
                         labelPosition="right"
                     />
                 </Form.Field>
+                <Message error header="Oops!" content={this.state.errorMessage} />
                 <Button loading={this.state.loading} primary>
                     List nft
                 </Button>
