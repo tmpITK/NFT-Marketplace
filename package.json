@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "test": "mocha",
-    "dev": "node server.js",
+    "devEth": "CHAIN_ENV=ethereum node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js",
+    "startEth": "NODE_ENV=production node server.js",
     "lint": "next lint",
     "compileEth": "node ./src/chain/ethereum/compile.js",
     "deployEth": "node ./src/chain/ethereum/deploy.js"

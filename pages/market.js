@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import Link from '../routes';
 import Layout from '../components/Layout';
-import EthereumAdapter from '../src/chain/adapters/EthereumAdapter';
+import ChainAdapter from '../src/chain/adapters/ChainAdapter';
 import { createCardGroupFromNftList } from '../src/utils';
-
-const ChainAdapter = EthereumAdapter;
 
 class MarketComponent extends Component {
 

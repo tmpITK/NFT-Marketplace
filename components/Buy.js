@@ -1,10 +1,8 @@
 
 import React, { Component } from "react";
 import { Form, Button, Message } from 'semantic-ui-react';
-import EthereumAdapter from '../src/chain/adapters/EthereumAdapter';
+import ChainAdapter from '../src/chain/adapters/ChainAdapter';
 import { Router } from '../routes';
-
-const ChainAdapter = EthereumAdapter;
 
 class Buy extends Component {
 

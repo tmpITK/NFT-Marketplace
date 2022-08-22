@@ -1,9 +1,8 @@
 import { Card, Form, Button } from 'semantic-ui-react';
 import { Link } from '../routes';
 import Buy from '../components/Buy';
-import EthereumAdapter from './chain/adapters/EthereumAdapter';
+import ChainAdapter from './chain/adapters/ChainAdapter';
 
-const ChainAdapter = EthereumAdapter;
 
 export function getIpfsUrlFromHash(hash) {
     return  `https://ipfs.io/ipfs/${hash}`;
@@ -12,6 +11,8 @@ export function getIpfsUrlFromHash(hash) {
 
 export function createCardGroupFromNftList(nftList, isOwner=false, isListing=false) {
     if (nftList) {
+        console.log(process.env)
+        console.log(process.env.CHAIN_ENV)
         const cardItems = nftList.map((nft) => {
             return {
                 header: nft.name,

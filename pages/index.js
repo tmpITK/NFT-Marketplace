@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-import { Card } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css'
 import { createCardGroupFromNftList } from "../src/utils";
-import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
+import ChainAdapter from "../src/chain/adapters/ChainAdapter";
 
 import Layout from "../components/Layout";
-import { Link } from "../routes";
-
-const ChainAdapter = EthereumAdapter;
 
 class MarketplaceIndex extends Component {
 

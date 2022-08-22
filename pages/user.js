@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import Layout from '../components/Layout';
-import EthereumAdapter from '../src/chain/adapters/EthereumAdapter';
-import { Card } from "semantic-ui-react";
-import { Link } from "../routes";
+import ChainAdapter from '../src/chain/adapters/ChainAdapter';
 import { createCardGroupFromNftList } from '../src/utils';
-
-const ChainAdapter = EthereumAdapter;
 
 class UserComponent extends Component {
 

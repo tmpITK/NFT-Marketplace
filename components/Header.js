@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
 import { Link } from "../routes";
 import 'semantic-ui-css/semantic.min.css';
-import EthereumAdapter from "../src/chain/adapters/EthereumAdapter";
-
-const ChainAdapter = EthereumAdapter;
+import ChainAdapter from "../src/chain/adapters/ChainAdapter";
 
 class Header extends Component {
 

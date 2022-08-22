@@ -154,7 +154,6 @@ async function listNftForSale(marketAddress, nftAddress, price) {
 
 async function buyNft(marketAddress, nftAddress) {
 
-
     const market = await getMarket(marketAddress);
     const nft = await getNft(nftAddress);
 
