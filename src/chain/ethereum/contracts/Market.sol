@@ -13,10 +13,10 @@ contract Market {
         uint numOwnedNfts;
     }
 
-    address [] public nftList;
-    mapping(address => address []) public ownerMap;
     uint nextNftIndex = 0;
+    address [] public nftList;
     Listing [] public listings;
+    mapping(address => address []) public ownerMap;
     mapping(address => userNftStorageInfo) public userNftStorageInfoMap;
 
     function mint(string memory name, string memory imgHash) public returns(address){
