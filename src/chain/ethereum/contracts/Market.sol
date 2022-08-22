@@ -119,7 +119,6 @@ contract Market {
         delete listings[listingIndex];
         return nftListing;
 
-
     }
 
 }
@@ -147,15 +146,6 @@ contract Nft {
     function setOwner(address addressNewOwner) public onlyOwningMarketCan {
         owner = addressNewOwner;
     }
-
-    function getIndex() public view returns(uint) {
-        return index;
-    }
-
-    function getOwner() public view returns(address) {
-        return owner;
-    }    
-
     function getNftInfo() public view returns (string memory, address, string memory, uint){
         return (
             name,

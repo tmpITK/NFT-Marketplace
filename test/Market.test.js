@@ -130,14 +130,14 @@ describe("Market", () => {
         const currentSellerBalance = web3.utils.fromWei(await web3.eth.getBalance(accounts[0]), 'ether');
 
         const boughtNft = await new web3.eth.Contract(compiledNft.abi, testNftAddress);
-        const nftOwner = await boughtNft.methods.getOwner().call();
+        const nftInfo = await boughtNft.methods.getNftInfo().call();
 
-        assert(nftOwner == accounts[1]);
+        assert(nftInfo[1] == accounts[1]);
         assert(parseFloat(currentSellerBalance) > parseFloat(initialSellerBalance));
         assert(parseFloat(currentBuyerBalance) < 90);
     });
 
-    it('Correctly places new NFT if previously had but currently does not have an NFT', async () => {
+    it('Correctly places bought NFT if previously had but currently does not have an NFT', async () => {
         await market.methods.mint("testName1", "testHash1").send({from: accounts[0], gas:1000000});
         const testNftAddress = await market.methods.nftList(0).call();
 
