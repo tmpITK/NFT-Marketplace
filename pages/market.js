@@ -5,7 +5,7 @@ import { Card } from 'semantic-ui-react';
 import NftListRenderingComponent from '../components/NftListRenderingComponent';
 
 
-class MarketComponent extends NftListRenderingComponent {
+class Marketplace extends NftListRenderingComponent {
 
     state = {nfts: ''}
 
@@ -25,4 +25,4 @@ class MarketComponent extends NftListRenderingComponent {
     }
 }
 
-export default MarketComponent;
+export default Marketplace;

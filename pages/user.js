@@ -4,7 +4,7 @@ import ChainAdapter from '../src/chain/adapters/ChainAdapter';
 import { Card } from 'semantic-ui-react';
 import NftListRenderingComponent from '../components/NftListRenderingComponent';
 
-class UserComponent extends NftListRenderingComponent {
+class UserDetails extends NftListRenderingComponent {
 
     static async getInitialProps(props) {
         const market = await ChainAdapter.getMarket(process.env.MARKET_ADDRESS);
@@ -28,4 +28,4 @@ class UserComponent extends NftListRenderingComponent {
     }
 };
 
-export default UserComponent;
+export default UserDetails;
