@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Layout from '../components/Layout';
 import ChainAdapter from '../src/chain/adapters/ChainAdapter';
-import { createCardGroupFromNftList } from '../src/utils';
+import NftCard from '../components/NftCard';
+import { Card } from 'semantic-ui-react';
 
 class UserComponent extends Component {
 
@@ -16,11 +17,18 @@ class UserComponent extends Component {
         };
     }
 
+    renderOwnedNfts() {
+        // could be an interface
+        return this.props.ownedNfts.map((nft) => {
+            return <NftCard nft={nft} isOwner={true} isListings={false}/>;
+        });
+    }
+
     render() {
         return (
         <Layout>
             <h2>NFTs of {this.props.userAddress}</h2>
-            {this.props.ownedNfts.length > 0 && createCardGroupFromNftList(this.props.ownedNfts, true)}
+            {this.props.ownedNfts.length > 0 && <Card.Group>{this.renderOwnedNfts()}</Card.Group>}
         </Layout>
         )
     }

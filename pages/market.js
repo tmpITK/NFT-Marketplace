@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Layout from '../components/Layout';
 import ChainAdapter from '../src/chain/adapters/ChainAdapter';
 import { createCardGroupFromNftList } from '../src/utils';
+import NftCard from '../components/NftCard';
+import { Card } from 'semantic-ui-react';
 
 class MarketComponent extends Component {
 
@@ -14,10 +16,17 @@ class MarketComponent extends Component {
         }
     }
 
+    renderListing() {
+        //could be and inteface
+        return this.props.nfts.map((nft) => {
+            return <NftCard nft={nft} isOwner={false} isListing={true}/>
+        })
+    }
+
     render() {
         return (
         <Layout>
-            {createCardGroupFromNftList(this.props.nfts, false, true)}
+            <Card.Group>{this.renderListing()}</Card.Group>
         </Layout>
         );
     }
