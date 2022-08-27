@@ -10,7 +10,7 @@ const nextConfig = {
     return config;
   },
   env : {
-     MARKET_ADDRESS: "0xe033cD29d7c9650251FE3B8060A02B9c673FB515",
+     MARKET_ADDRESS: "0x37AdE76f3846F380c0766179a2b6C19a9Bc929C5",
      CHAIN_ENV: process.env.CHAIN_ENV
   }
 }

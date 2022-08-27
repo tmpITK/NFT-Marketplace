@@ -67,7 +67,9 @@ async function getNumberOfOwnedNfts(market, userAddress) {
 
 async function getOwnedNfts(market, userAddress) {
     const numberOfNfts = await getNumberOfOwnedNfts(market, userAddress);
+    console.log8
     const userStore = await market.methods.userNftStorageInfoMap(userAddress).call();
+    console.log('userAddress', userAddress);
 
     console.log("userStore", userStore);
     
@@ -75,9 +77,12 @@ async function getOwnedNfts(market, userAddress) {
       Array(parseInt(numberOfNfts))
         .fill()
         .map(async (element, index) => {
+            console.log(index);
             const nftAddress = await market.methods.getOwnedNft(userAddress, index).call();
+            console.log("nftAddress", nftAddress);
             const nft = getNft(nftAddress);
             const nftInfo = await nft.methods.getNftInfo().call();
+            console.log("nftInfo", nftInfo);
 
             return {
               name: nftInfo[0],
@@ -87,6 +92,7 @@ async function getOwnedNfts(market, userAddress) {
             };
         })
     );
+    console.log("huggy")
     return nfts;
 }
 
