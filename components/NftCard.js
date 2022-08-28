@@ -6,11 +6,10 @@ import ChainAdapter from '../src/chain/adapters/ChainAdapter';
 
 const NftCard = props => {
     const {nft, isOwner, isListing} = props;
-    console.log("img src", ChainAdapter.getNftImage(nft))
     return (
-        <Card>
-            <Image src={ChainAdapter.getNftImage(nft)} size='medium' circular />
-            <Card.Content>
+        <Card style={{background: 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5))'}}>
+            <img src={ChainAdapter.getNftImage(nft)} height={"200px"} style={{borderRadius: "50%"}}/>
+            <Card.Content >
                 <Card.Header>{nft.name}</Card.Header>
                 <Card.Meta>
                     <Link route={`/nft/${nft.address}`}>

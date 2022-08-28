@@ -20,9 +20,7 @@ class MarketplaceIndex extends NftListRenderingComponent {
   render() {
     return(
       <Layout>
-        <Card.Group>
           {this.renderNftList()}
-        </Card.Group>
       </Layout>
       
     );

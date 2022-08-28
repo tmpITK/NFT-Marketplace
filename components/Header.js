@@ -17,7 +17,7 @@ class Header extends Component {
 
   render() {
     return (
-      <Menu style={{ marginTop: "10px" }}>
+      <Menu inverted>
         <Link route="/">
           <a className="item">NFTs for everyone!</a>
         </Link>

@@ -22,7 +22,7 @@ class UserDetails extends NftListRenderingComponent {
         return (
         <Layout>
             <h2>NFTs of {this.props.userAddress}</h2>
-            {this.props.nfts.length > 0 && <Card.Group>{this.renderNftList()}</Card.Group>}
+            {this.props.nfts.length > 0 && this.renderNftList()}
         </Layout>
         )
     }
