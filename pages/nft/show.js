@@ -30,7 +30,7 @@ class NftShow extends Component {
                         <Header>{name}</Header>
                         <Description>Owned by <br/> 
                                 <Link route={`/user/${owner}`}>
-                                    <a>{owner}</a>
+                                    <a>{owner.slice(0,20)}...</a>
                                 </Link>
                         </Description>
 
