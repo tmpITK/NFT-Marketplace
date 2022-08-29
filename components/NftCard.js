@@ -8,7 +8,7 @@ const NftCard = props => {
     const {nft, isOwner, isListing} = props;
     return (
         <Card style={{background: 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5))'}}>
-            <img src={ChainAdapter.getNftImage(nft)} style={{width: "300px", height: "337px", objectFit: "cover"}}/>
+            <img src={ChainAdapter.getNftImage(nft)} style={{height: "300px", objectFit: "cover"}}/>
             <Card.Content >
                 <Card.Header>{nft.name}</Card.Header>
                 <Card.Meta>
