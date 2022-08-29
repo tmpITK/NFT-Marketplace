@@ -19,17 +19,17 @@ class Header extends Component {
     return (
       <Menu inverted>
         <Link route="/">
-          <a className="item">NFTs for everyone!</a>
+          <a className="item">enefte</a>
         </Link>
         <Link route="/market">
-          <a className="item">Take me to the NFT Market</a>
+          <a className="item">Take me to the Market</a>
         </Link>
         <Menu.Menu position="right">
           <Link route="/">
             <a className="item">Home</a>
           </Link>
           <Link route={`/user/${this.state.userAddress}`}>
-            <a className="item">User</a>
+            <a className="item">My Nfts</a>
           </Link>
           <Link route="/nft/new">
             <a className="item">+</a>
