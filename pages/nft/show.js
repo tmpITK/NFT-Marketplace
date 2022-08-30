@@ -24,7 +24,7 @@ class NftShow extends Component {
         const { Content, Header, Description} = Card;
         return(
             <Layout>
-                <Card centered>
+                <Card centered style={{background: 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5))'}}>
                     <Image src={getIpfsUrlFromHash(ipfsHash)} /> 
                     <Content>
                         <Header>{name}</Header>
