@@ -1,4 +1,4 @@
-/* const assert = require("assert");
+const assert = require("assert");
 const EthereumAdapter = require("../src/chain/adapters/EthereumAdapter");
 const ganache = require("ganache-cli");
 const Web3 = require("web3");
@@ -35,4 +35,4 @@ describe("EthereumAdapter", () => {
         assert(nft.address === mintedNft.address);
     });
 
-}); */
+});
