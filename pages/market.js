@@ -19,7 +19,7 @@ class Marketplace extends NftListRenderingComponent {
     render() {
         return (
         <Layout>
-            {this.renderNftList()}
+            {this.renderNftList(false, true)}
         </Layout>
         );
     }

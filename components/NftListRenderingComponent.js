@@ -4,13 +4,13 @@ import NftCard from './NftCard';
 
 class NftListRenderingComponent extends Component {
 
-    renderNftList() {
+    renderNftList(isOwner=false, isListing=false) {
 
     return (
     <Card.Group centered>
         {
             this.props.nfts.map((nft) => {
-            return (<NftCard key={nft.address} nft={nft} isOwner={false} isListing={false}/>);
+            return (<NftCard key={nft.address} nft={nft} isOwner={isOwner} isListing={isListing}/>);
             })
         }
     </Card.Group>)

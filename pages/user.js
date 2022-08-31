@@ -22,7 +22,7 @@ class UserDetails extends NftListRenderingComponent {
         return (
         <Layout>
             <h2 class="contrasted-text" style={{textAlign: 'center'}}>NFTs of {this.props.userAddress}</h2>
-            {this.props.nfts.length > 0 && this.renderNftList()}
+            {this.props.nfts.length > 0 && this.renderNftList(true)}
         </Layout>
         )
     }
