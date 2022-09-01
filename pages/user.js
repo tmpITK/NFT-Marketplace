@@ -7,10 +7,7 @@ import NftListRenderingComponent from '../components/NftListRenderingComponent';
 class UserDetails extends NftListRenderingComponent {
 
     static async getInitialProps(props) {
-        const market = await ChainAdapter.getMarket(process.env.MARKET_ADDRESS);
-        console.log("user")
-        console.log(market._address);
-        const ownedNfts = await ChainAdapter.getOwnedNfts(market, props.query.userAddress);
+        const ownedNfts = await ChainAdapter.getOwnedNfts(props.query.userAddress);
         console.log("ownedNfts", ownedNfts)
         return {
             userAddress: props.query.userAddress,

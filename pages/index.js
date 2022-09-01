@@ -10,7 +10,7 @@ import Layout from "../components/Layout";
 class MarketplaceIndex extends NftListRenderingComponent {
 
   static async getInitialProps(props) {
-    let nfts = await ChainAdapter.getNftList(process.env.MARKET_ADDRESS);
+    let nfts = await ChainAdapter.getNftList();
     nfts = nfts.slice(-3);
     return {
       nfts: nfts

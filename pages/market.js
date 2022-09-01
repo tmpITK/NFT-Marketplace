@@ -10,7 +10,7 @@ class Marketplace extends NftListRenderingComponent {
     state = {nfts: ''}
 
     static async getInitialProps() {
-        const nfts = await ChainAdapter.getListedNfts(process.env.MARKET_ADDRESS);
+        const nfts = await ChainAdapter.getListedNfts();
         return {
             nfts: nfts
         }

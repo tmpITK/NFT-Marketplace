@@ -5,7 +5,6 @@ import { Router } from '../routes';
 
 class ListNftForm extends Component {
     state = {
-        marketAddress: "",
         nftAddress: "",
         price: "",
         loading: false,
@@ -13,14 +12,14 @@ class ListNftForm extends Component {
     };
 
   componentDidMount() {
-    this.setState({marketAddress: this.props.marketAddress, nftAddress: this.props.nftAddress});
+    this.setState({nftAddress: this.props.nftAddress});
   }
 
   onSubmit = async (event) => {
     event.preventDefault();
     this.setState({loading: true});
     try{
-        await ChainAdapter.listNftForSale(this.state.marketAddress, this.state.nftAddress, this.state.price);
+        await ChainAdapter.listNftForSale(this.state.nftAddress, this.state.price);
         this.setState({errorMessage: ""});
         Router.replaceRoute("/market");
     }catch (err){

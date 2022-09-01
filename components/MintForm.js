@@ -16,7 +16,7 @@ class MintForm extends Component {
     this.setState({loading: true});
     try{
         const userAddress = await ChainAdapter.getUserAddress();
-        await ChainAdapter.mint(process.env.MARKET_ADDRESS, this.state.name, this.state.url);
+        await ChainAdapter.mint(this.state.name, this.state.url);
         this.setState({errorMessage: ""});
         Router.pushRoute(`/user/${userAddress}`);
     }catch (err){

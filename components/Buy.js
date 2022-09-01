@@ -15,7 +15,7 @@ class Buy extends Component {
         event.preventDefault();
         this.setState({loading: true});
         try{
-            await ChainAdapter.buyNft(this.props.marketAddress, this.props.nftAddress);
+            await ChainAdapter.buyNft(this.props.nftAddress);
             this.setState({errorMessage: ""});
             Router.pushRoute(`/nft/${this.props.nftAddress}`);
         }catch (err){
