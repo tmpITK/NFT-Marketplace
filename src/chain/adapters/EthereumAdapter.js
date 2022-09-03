@@ -120,7 +120,6 @@ class EthereumAdapter {
     async getNftListing(nftIndex) {
         const numListedNfts = await this.market.methods.getNumberOfListedNfts().call();
     
-    
         for (let i = 0; i < numListedNfts; i++) {
             const listing = await this.market.methods.listings(i).call();
             if(listing.index == nftIndex && listing.price > 0) {
@@ -138,7 +137,6 @@ class EthereumAdapter {
         let nftInfo = await nft.methods.getNftInfo().call();
     
         await this.market.methods.listNftForSale(nftAddress, nftInfo[3], this.web3.utils.toWei(price, "ether")).send({from: userAddress});
-        nftInfo = await nft.methods.getNftInfo().call();
     }
     
     async buyNft(nftAddress) {
