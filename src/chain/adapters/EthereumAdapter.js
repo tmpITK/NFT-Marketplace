@@ -22,7 +22,7 @@ class EthereumAdapter {
         console.log("MINTING")
         const userAccount = await this.getUserAddress();
         console.log(userAccount);
-        console.log(this.market.methods)
+        console.log(this.market._address)
         await this.market.methods.mint(name, url)
                             .send({from: userAccount});
         console.log("MINTED");
