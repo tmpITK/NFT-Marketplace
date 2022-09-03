@@ -1,4 +1,3 @@
-import AdapterInterface from "./Interface";
 import Market from "../ethereum/market";
 import Nft from "../ethereum/nft";
 import { getIpfsUrlFromHash } from "../../utils";
