@@ -45,7 +45,7 @@ beforeEach(async () => {
 describe("EthereumAdapter", () => {
     it("should get nft list of owner", async () => {
         const ownedNftList = await EthereumAdapter.getOwnedNfts(accounts[0]);
-        assert(ownedNftList.length === 1);
+        assert(ownedNftList.length === 1, "Not exactly 1 owned nft");
         const nft = ownedNftList[0];
         assert(nft.name === "testNft1", "Names do not match");
         assert(nft.owner === accounts[0], "Owners do not match");
@@ -55,16 +55,30 @@ describe("EthereumAdapter", () => {
 
     it("should list nft for sale", async () => {
         await EthereumAdapter.listNftForSale(mintedNft.address, "0.0001");
-        console.log("listing done")
         const listedNfts = await EthereumAdapter.getListedNfts();
 
         assert(listedNfts.length === 1, "Not exactly 1 listed nft");
-        console.log(listedNfts[0]);
-        console.log(mintedNft);
+
         assert(listedNfts[0].name == mintedNft.name, "Listed and minted nft names differ");
         assert(listedNfts[0].ipfsHash === mintedNft.ipfsHash, "Listed and minted nft ipfsHashes differ");
         assert(listedNfts[0].address == mintedNft.address, "Listed and minted nft addresses differ");
         assert(listedNfts[0].owner == market._address, "Listed and minted nft names differ");
+    });
+
+    it("should buy nft", async () => {
+        await EthereumAdapter.listNftForSale(mintedNft.address, "0.0001");
+        let ownedNftList = await EthereumAdapter.getOwnedNfts(accounts[0]);
+        assert(ownedNftList.length === 0, "Not exactly 0 nfts post sell");
+
+        await EthereumAdapter.buyNft(mintedNft.address);
+        ownedNftList = await EthereumAdapter.getOwnedNfts(accounts[0]);
+        assert(ownedNftList.length === 1, "Not exactly 1 owned nft post buy");
+
+        assert(ownedNftList[0].name == mintedNft.name, "Listed and minted nft names differ");
+        assert(ownedNftList[0].ipfsHash === mintedNft.ipfsHash, "Listed and minted nft ipfsHashes differ");
+        assert(ownedNftList[0].address == mintedNft.address, "Listed and minted nft addresses differ");
+        assert(ownedNftList[0].owner == mintedNft.owner, "Listed and minted nft names differ");
+
     });
 
 });

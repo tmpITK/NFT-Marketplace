@@ -1,4 +1,4 @@
-/* const assert = require("assert");
+const assert = require("assert");
 const ganache = require("ganache-cli");
 const Web3 = require("web3");
 const web3 = new Web3(ganache.provider({gasLimit: 8000000}));
@@ -128,9 +128,9 @@ describe("Market", () => {
         
         const currentBuyerBalance = web3.utils.fromWei(await web3.eth.getBalance(accounts[1]), 'ether');
         const currentSellerBalance = web3.utils.fromWei(await web3.eth.getBalance(accounts[0]), 'ether');
+        const mintedNft = await new web3.eth.Contract(compiledNft.abi, testNftAddress);
 
-        const boughtNft = await new web3.eth.Contract(compiledNft.abi, testNftAddress);
-        const nftInfo = await boughtNft.methods.getNftInfo().call();
+        const nftInfo = await mintedNft.methods.getNftInfo().call();
 
         assert(nftInfo[1] == accounts[1]);
         assert(parseFloat(currentSellerBalance) > parseFloat(initialSellerBalance));
@@ -161,4 +161,4 @@ describe("Market", () => {
         assert(boughtBackNftAddress == testNftAddress);
     });
 
-}); */
+});
