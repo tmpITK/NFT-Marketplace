@@ -7,7 +7,6 @@ class UserDetails extends NftListRenderingComponent {
 
     static async getInitialProps(props) {
         const ownedNfts = await ChainAdapter.getOwnedNfts(props.query.userAddress);
-        console.log("ownedNfts", ownedNfts)
         return {
             userAddress: props.query.userAddress,
             nfts: ownedNfts
