@@ -30,21 +30,8 @@ beforeEach(async () => {
 
     EthereumAdapter = new EthereumAdapterImport.default(web3, market, nftFactory);
 
-    const mintStub = sinon.stub(EthereumAdapter, 'mint').callsFake(async function(adapter, name, url, gas) {
-        const userAccount = await adapter.getUserAddress();
-        await adapter.market.methods.mint(name, url)
-                            .send({from: userAccount, gas: gas});
-    });
-
-    const listNftForSaleStub = sinon.stub(EthereumAdapter, 'listNftForSale').callsFake(async function(adapter, nftAddress, price) {
-        const userAddress = await this.getUserAddress();
-        const nft = await this.getNft(nftAddress);
-        let nftInfo = await nft.methods.getNftInfo().call();
     
-        await this.market.methods.listNftForSale(nftAddress, nftInfo[3], this.web3.utils.toWei(price, "ether")).send({from: userAddress, gas:2000000});
-    });
-    
-    await EthereumAdapter.mint(EthereumAdapter, 'testNft1', 'testHash1', 1000000 );
+    await EthereumAdapter.mint('testNft1', 'testHash1', 1000000 );
     const nfts = await EthereumAdapter.getNftList();
     mintedNft = nfts[0];
 
@@ -67,7 +54,7 @@ describe("EthereumAdapter", () => {
     });
 
     it("should list nft for sale", async () => {
-        await EthereumAdapter.listNftForSale(EthereumAdapter, mintedNft.address, "0.0001");
+        await EthereumAdapter.listNftForSale(mintedNft.address, "0.0001");
         console.log("listing done")
         const listedNfts = await EthereumAdapter.getListedNfts();
 

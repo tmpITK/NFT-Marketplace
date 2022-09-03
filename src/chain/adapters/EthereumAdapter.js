@@ -23,7 +23,7 @@ class EthereumAdapter {
         console.log("MINTING")
         const userAccount = await this.getUserAddress();
         await this.market.methods.mint(name, url)
-                            .send({from: userAccount});
+                            .send({from: userAccount, gas:1000000});
         console.log("MINTED");
     }
     
@@ -136,7 +136,7 @@ class EthereumAdapter {
         const nft = await this.getNft(nftAddress);
         let nftInfo = await nft.methods.getNftInfo().call();
     
-        await this.market.methods.listNftForSale(nftAddress, nftInfo[3], this.web3.utils.toWei(price, "ether")).send({from: userAddress});
+        await this.market.methods.listNftForSale(nftAddress, nftInfo[3], this.web3.utils.toWei(price, "ether")).send({from: userAddress, gas:1000000});
     }
     
     async buyNft(nftAddress) {
