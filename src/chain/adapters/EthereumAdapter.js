@@ -3,25 +3,25 @@ import Nft from "../ethereum/nft";
 import { getIpfsUrlFromHash } from "../../utils";
 
 class EthereumAdapter {
-    constructor(web3Provider, market) {
+    constructor(web3Provider, market, nftFactory=Nft) {
         this.web3 = web3Provider;
         this.market = market;
+        this.nftFactory = nftFactory;
     }
 
     getMarket(address) {
         return Market(address);
     }
     
-    getNft(address) {
-        return Nft(address);
+    async getNft(address) {
+        const nft = await this.nftFactory(address)
+        return nft;
     }
     
     
     async mint(name, url) {
         console.log("MINTING")
         const userAccount = await this.getUserAddress();
-        console.log(userAccount);
-        console.log(this.market._address)
         await this.market.methods.mint(name, url)
                             .send({from: userAccount});
         console.log("MINTED");
@@ -29,15 +29,13 @@ class EthereumAdapter {
     
     
     async getNftList() {
-    
         const numberOfNfts = await this.market.methods.getNumberOfNfts().call();
-    
         const nfts = await Promise.all(
             Array(parseInt(numberOfNfts))
             .fill()
             .map(async (element, index) => {
                 const nftAddress = await this.market.methods.nftList(index).call();
-                const nft = this.getNft(nftAddress);
+                const nft = await this.getNft(nftAddress);
                 const nftInfo = await nft.methods.getNftInfo().call();
     
                 return {
@@ -74,12 +72,9 @@ class EthereumAdapter {
             Array(parseInt(numberOfNfts))
                 .fill()
                 .map(async (element, index) => {
-                    console.log(index);
                     const nftAddress = await this.market.methods.getOwnedNft(userAddress, index).call();
-                    console.log("nftAddress", nftAddress);
-                    const nft = this.getNft(nftAddress);
+                    const nft = await this.getNft(nftAddress);
                     const nftInfo = await nft.methods.getNftInfo().call();
-                    console.log("nftInfo", nftInfo);
         
                     return {
                         name: nftInfo[0],
@@ -94,7 +89,6 @@ class EthereumAdapter {
     
     async getListedNfts() {
         const numberOfListedNfts = await this.market.methods.getNumberOfListedNfts().call();
-        console.log('num listed', numberOfListedNfts);
         const nfts = await Promise.all(
             Array(parseInt(numberOfListedNfts))
                 .fill()
@@ -140,15 +134,11 @@ class EthereumAdapter {
     
     async listNftForSale(nftAddress, price) {
         const userAddress = await this.getUserAddress();
-        console.log("userAddress", userAddress);
-    
         const nft = await this.getNft(nftAddress);
         let nftInfo = await nft.methods.getNftInfo().call();
-        console.log("nftInfo", nftInfo);
     
         await this.market.methods.listNftForSale(nftAddress, nftInfo[3], this.web3.utils.toWei(price, "ether")).send({from: userAddress});
         nftInfo = await nft.methods.getNftInfo().call();
-        console.log("nftInfo", nftInfo);
     }
     
     async buyNft(nftAddress) {
@@ -157,27 +147,19 @@ class EthereumAdapter {
     
         let nftInfo = await nft.methods.getNftInfo().call();
         let nftIndex = nftInfo[3];
-        console.log("nftInfo", nftInfo);
     
         let listing = await this.getNftListing(nftIndex);
-        console.log("listing", listing);
     
         const userAddress = await this.getUserAddress();
-        console.log("userAddress", userAddress);
         let num = await this.market.methods.getNumberOfOwnedNfts(userAddress).call();
-        console.log("num", num);
         await this.market.methods.buyNft(nftAddress, listing.listing[1], listing.listingIndex).send({from: userAddress, value: listing.listing[1], gas:1000000});
         
     
         nftInfo = await nft.methods.getNftInfo().call();
-        console.log("nftInfo", nftInfo);
         
         let firstNft = await this.market.methods.getOwnedNft(userAddress, 0).call();
         num = await this.market.methods.getNumberOfOwnedNfts(userAddress).call();
         listing = await this.getNftListing(nftIndex);
-        console.log("listing", listing);
-        console.log("num", num);
-        console.log("firstNft", firstNft);  
     }
 
 }
