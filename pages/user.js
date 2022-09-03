@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Layout from '../components/Layout';
 import ChainAdapter from '../src/chain/adapters/ChainAdapter';
-import { Card } from 'semantic-ui-react';
 import NftListRenderingComponent from '../components/NftListRenderingComponent';
 
 class UserDetails extends NftListRenderingComponent {
@@ -18,7 +17,7 @@ class UserDetails extends NftListRenderingComponent {
     render() {
         return (
         <Layout>
-            <h2 class="contrasted-text" style={{textAlign: 'center'}}>NFTs of {this.props.userAddress}</h2>
+            <h2 className="contrasted-text" style={{textAlign: 'center'}}>NFTs of {this.props.userAddress}</h2>
             {this.props.nfts.length > 0 && this.renderNftList(true)}
         </Layout>
         )

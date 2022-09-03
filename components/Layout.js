@@ -6,19 +6,16 @@ import 'semantic-ui-css/semantic.min.css'
 
 const Layout = (props) => {
   return (
-    <div style={{height: '100%'}}>
+    <div style={{height: '100%', backgroundImage: "url(/img/background.png)"}}>
       <Container>
         <Head>
         </Head>
         <Header />
         {props.children}
       </Container>
-      <style jsx global>{`
+      <style jsx="true">{`
         #__next {
           height: 100%;
-        }
-        body {
-          background-image: url("/img/background.png");
         }
       `}</style>
     </div>
