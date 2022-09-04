@@ -22,4 +22,8 @@ Given the fact that I have other responsibilities, I want to finish this in 2 mo
 
 GL HF
 
+# Ethereum - dev
+
+To start the project with ethereum run npm run devEth (this sets CHAIN_ENV env var to ethereum)
+
 [1] The Complete 2022 Web Development Bootcamp by Angela Yu on Udemy. https://www.udemy.com/course/the-complete-web-development-bootcamp/
