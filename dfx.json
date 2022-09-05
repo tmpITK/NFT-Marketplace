@@ -2,17 +2,18 @@
   "version": 1,
   "dfx": "0.11.2",
   "canisters": {
-    "nft-marketplace_backend": {
+    "marketplace": {
       "type": "motoko",
-      "main": "src/nft-marketplace/src/chain/dfinity/main.mo"
+      "main": "src/chain/dfinity/main.mo"
     },
-    "nft-marketplace_frontend": {
+    "nft" : {
+      "type": "motoko",
+      "main": "src/chain/dfinity/nft.mo"
+    },
+    "assets": {
       "type": "assets",
       "source": [
-        "src/nft-marketplace/assets"
-      ],
-      "dependencies": [
-        "nft-marketplace/src/chain/dfinity"
+        "assets"
       ]
     }
   },
