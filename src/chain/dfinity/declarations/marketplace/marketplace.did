@@ -1,0 +1,3 @@
+service : {
+  mint: (text, text) -> (principal);
+}

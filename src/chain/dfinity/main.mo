@@ -34,4 +34,13 @@ actor MarketPlace {
       ownedNFTs := List.push(nftId, ownedNFTs);
       ownerMap.put(owner, ownedNFTs);
     };
+
+    public func getOwnedNfts(owner: Principal) : async [Principal] {
+      var ownedNFTs : List.List<Principal> = switch (ownerMap.get(owner)) {
+        case null List.nil<Principal>();
+        case (?result) result;
+      };
+
+      return List.toArray(ownedNFTs);
+    }
 }

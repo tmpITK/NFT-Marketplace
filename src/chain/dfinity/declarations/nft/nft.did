@@ -1,0 +1,8 @@
+type Nft = 
+ service {
+   getCanisterId: () -> (principal) query;
+   getIpfsHash: () -> (text) query;
+   getName: () -> (text) query;
+   getOwner: () -> (principal) query;
+ };
+service : (text, principal, text) -> Nft
