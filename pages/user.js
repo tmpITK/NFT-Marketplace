@@ -1,7 +1,7 @@
 import React from 'react';
-import Layout from '../components/Layout';
+import Layout from '../components/dynamic/DynamicLayout';
 import ChainAdapter from '../src/chain/adapters/ChainAdapter';
-import NftListRenderingComponent from '../components/NftListRenderingComponent';
+import NftListRenderingComponent from '../components/dynamic/DynamicNftListRenderingComponent';
 
 class UserDetails extends NftListRenderingComponent {
 

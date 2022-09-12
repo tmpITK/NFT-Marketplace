@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import MintForm from "../../components/MintForm";
-import Layout from "../../components/Layout";
+import MintForm from "../../components/dynamic/DynamicMintForm";
+import Layout from "../../components/dynamic/DynamicLayout";
 
 class Minter extends Component {
     render() {
