@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import ListNftForm from "../../components/listNftForm";
-import Layout from "../../components/Layout";
+import ListNftForm from "../components/listNftForm";
+import Layout from "../components/Layout";
 
 class ListNftForSale extends Component {
 

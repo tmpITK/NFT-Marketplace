@@ -1,7 +1,7 @@
 import { Card, Image } from 'semantic-ui-react';
-import { Link } from '../routes';
+import { Link } from '../../routes';
 import Buy from './Buy';
-import ChainAdapter from '../src/chain/adapters/ChainAdapter';
+import ChainAdapter from '../../src/chain/adapters/ChainAdapter';
 import React from 'react';
 
 
