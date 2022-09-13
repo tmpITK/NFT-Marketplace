@@ -1,6 +1,6 @@
 import { Card, Image, Form, Button } from 'semantic-ui-react';
 import { Link } from '../routes';
-import Buy from '../components/dynamic/DinamicBuy';
+import Buy from '../components/Buy';
 import ChainAdapter from './chain/adapters/ChainAdapter';
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import Layout from '../components/dynamic/DynamicLayout';
+import Layout from '../components/Layout';
 import ChainAdapter from '../src/chain/adapters/ChainAdapter';
-import NftListRenderingComponent from '../components/dynamic/DynamicNftListRenderingComponent';
+import NftListRenderingComponent from '../components/NftListRenderingComponent';
 
 
 class Marketplace extends NftListRenderingComponent {
