@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card, Image } from "semantic-ui-react";
-import Layout from "../../components/Layout";
+import Layout from "../../components/dynamic/DynamicLayout";
 import ChainAdapter from "../../src/chain/adapters/ChainAdapter";
 import { getIpfsUrlFromHash } from "../../src/utils";
 import { Link } from "../../routes";
