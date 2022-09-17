@@ -4,15 +4,15 @@
   "canisters": {
     "nftMarketplace_backend": {
       "type": "motoko",
-      "main": "src/nft-marketplace/src/chain/dfinity/main.mo"
+      "main": "src/nftMarketplace_backend/main.mo"
     },
     "nftMarketplace_frontend": {
       "type": "assets",
       "source": [
-        "src/nft-marketplace/assets"
+        "src/nftMarketplace_frontend/assets"
       ],
       "dependencies": [
-        "nft-marketplace/src/chain/dfinity"
+        "nftMarketplace_backend"
       ]
     }
   },
