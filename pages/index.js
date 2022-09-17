@@ -1,9 +1,9 @@
 import React from "react";
-import NftListRenderingComponent from './components/NftListRenderingComponent';
+import NftListRenderingComponent from '../components/NftListRenderingComponent';
 import 'semantic-ui-css/semantic.min.css'
 import ChainAdapter from "../src/chain/adapters/ChainAdapter";
 
-import Layout from "./components/Layout";
+import Layout from "../components/Layout";
 
 class MarketplaceIndex extends NftListRenderingComponent {
 
