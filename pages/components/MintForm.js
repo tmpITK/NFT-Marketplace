@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Input, Grid, Button, Message } from "semantic-ui-react";
-import ChainAdapter from "../src/chain/adapters/ChainAdapter";
-import { Router } from '../routes';
+import ChainAdapter from "../../src/chain/adapters/ChainAdapter";
+import { Router } from '../../routes';
 
 class MintForm extends Component {
   state = {

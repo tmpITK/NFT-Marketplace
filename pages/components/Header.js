@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
-import { Link } from "../routes";
+import { Link } from "../../routes";
 import 'semantic-ui-css/semantic.min.css';
-import ChainAdapter from "../src/chain/adapters/ChainAdapter";
+import ChainAdapter from "../../src/chain/adapters/ChainAdapter";
 
 class Header extends Component {
 

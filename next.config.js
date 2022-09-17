@@ -2,7 +2,7 @@
 
 
 const DFXWebPackConfig = require("./dfx.webpack.config")
-DFXWebPackConfig.initCanisterIds()
+
 
 const webpack = require("webpack")
 

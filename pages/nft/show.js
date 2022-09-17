@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card, Image, Grid } from "semantic-ui-react";
-import Layout from "../../components/Layout";
+import Layout from "../components/Layout";
 import Nft from "../../src/chain/ethereum/nft";
 import { getIpfsUrlFromHash } from "../../src/utils";
 import { Link } from "../../routes";
