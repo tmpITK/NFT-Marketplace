@@ -34,6 +34,4 @@ dfx identity get-principal
 
 dfx deploy --argument '("asd", principal "f3lqb-jeyna-khd2h-4posw-e6pyc-e4yqc-nbtax-hjvey-he6yo-gtlbk-jae", "QmZjgbNwQLFmbvoKdBRUjYZSGGY1dnuZCzYDg34Vk79vRs")'
 
-dfx generate 
-
 [1] The Complete 2022 Web Development Bootcamp by Angela Yu on Udemy. https://www.udemy.com/course/the-complete-web-development-bootcamp/
