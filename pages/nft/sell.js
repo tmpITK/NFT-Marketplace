@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import ListNftForm from "../../components/dynamic/DynamicListNftForm";
-import Layout from "../../components/dynamic/DynamicLayout";
+import ListNftForm from "../../components/listNftForm";
+import Layout from "../../components/Layout";
 
 class ListNftForSale extends Component {
 

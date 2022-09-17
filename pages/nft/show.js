@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Card, Image } from "semantic-ui-react";
-import Layout from "../../components/dynamic/DynamicLayout";
-import ChainAdapter from "../../src/chain/adapters/ChainAdapter";
+import { Card, Image, Grid } from "semantic-ui-react";
+import Layout from "../../components/Layout";
+import Nft from "../../src/chain/ethereum/nft";
 import { getIpfsUrlFromHash } from "../../src/utils";
 import { Link } from "../../routes";
 
@@ -9,7 +9,7 @@ class NftShow extends Component {
 
     static async getInitialProps(props) {
 
-        const nft = await ChainAdapter.nftFactory(props.query.address);
+        const nft = Nft(props.query.address);
         const nftInfo = await nft.methods.getNftInfo().call();
 
         return {
