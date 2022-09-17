@@ -1,5 +1,8 @@
-import DfinityAdapter from "./DfinityAdapter";
+import dynamic from 'next/dynamic'
 
-let ChainAdapter =  new DfinityAdapter(marketplace);
+const DynamicChainAdapter = dynamic(
+    () => import('./StaticChainAdapter'),
+    { ssr: false }
+)
 
-export default ChainAdapter;
+export default DynamicChainAdapter;
