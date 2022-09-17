@@ -5,13 +5,9 @@
   "scripts": {
     "test": "mocha",
     "testBabel": "nyc mocha --require @babel/register",
-    "devEth": "CHAIN_ENV=ethereum node server.js",
     "devDf": "CHAIN_ENV=dfinity node server.js",
     "build": "CHAIN_ENV=dfinity DFX_NETWORK=local next build",
-    "startEth": "NODE_ENV=production node server.js",
-    "lint": "next lint",
-    "compileEth": "node ./src/chain/ethereum/compile.js",
-    "deployEth": "node ./src/chain/ethereum/deploy.js"
+    "lint": "next lint"
   },
   "browser": {
     "fs": false,
@@ -41,8 +37,7 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.1.3",
     "solc": "^0.8.15",
-    "typescript": "^4.8.2",
-    "web3": "^1.7.5"
+    "typescript": "^4.8.2"
   },
   "devDependencies": {
     "@dfinity/agent": "0.11.2",
