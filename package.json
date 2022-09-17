@@ -7,7 +7,7 @@
     "testBabel": "nyc mocha --require @babel/register",
     "devEth": "CHAIN_ENV=ethereum node server.js",
     "devDf": "CHAIN_ENV=dfinity node server.js",
-    "build": "CHAIN_ENV=dfinity DFX_NETWORK=local next build",
+    "build": "next build",
     "startEth": "NODE_ENV=production node server.js",
     "lint": "next lint",
     "compileEth": "node ./src/chain/ethereum/compile.js",
