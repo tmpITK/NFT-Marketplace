@@ -2,7 +2,16 @@ import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
 import { Link } from "../routes";
 import 'semantic-ui-css/semantic.min.css';
-import ChainAdapter from "../src/chain/adapters/ChainAdapter";
+
+import DfinityAdapter from "../src/chain/adapters/DfinityAdapter";
+import dynamic from 'next/dynamic'
+
+const DynamicMarketplace = dynamic(
+  () => import('../src/chain/dfinity/declarations/marketplace'),
+  { ssr: false }
+)
+
+const ChainAdapter = new DfinityAdapter(DynamicMarketplace.default)
 
 class Header extends Component {
 

@@ -23,7 +23,7 @@ class DfinityAdapter {
 
     async getUserAddress() {
         // right now only testing user for dfinity
-        const test_user_id = Principal.from_text("2vxsx-fae");
+        const test_user_id = Principal.fromText("2vxsx-fae");
         return test_user_id;
     }
 

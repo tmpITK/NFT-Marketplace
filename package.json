@@ -5,7 +5,7 @@
   "scripts": {
     "test": "mocha",
     "testBabel": "nyc mocha --require @babel/register",
-    "devDf": "CHAIN_ENV=dfinity node server.js",
+    "dev": "CHAIN_ENV=dfinity node server.js",
     "build": "CHAIN_ENV=dfinity DFX_NETWORK=local next build",
     "lint": "next lint"
   },

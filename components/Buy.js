@@ -2,6 +2,8 @@
 import React, { Component } from "react";
 import { Form, Button, Message } from 'semantic-ui-react';
 import ChainAdapter from '../src/chain/adapters/ChainAdapter';
+import DfinityAdapter from "../src/chain/adapters/DfinityAdapter";
+//import MarketplaceCreator from "../src/chain/adapters/MarketplaceCreator";
 import { Router } from '../routes';
 
 class Buy extends Component {

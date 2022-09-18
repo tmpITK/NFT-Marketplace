@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 
 const DynamicChainAdapter = dynamic(
-    () => import('./StaticChainAdapter'),
+    () => import('./DfinityAdapter'),
     { ssr: false }
 )
 
