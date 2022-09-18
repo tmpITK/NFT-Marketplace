@@ -11,7 +11,7 @@ const DynamicMarketplace = dynamic(
   { ssr: false }
 )
 
-const ChainAdapter = new DfinityAdapter(DynamicMarketplace.default)
+const chainAdapter = new DfinityAdapter(DynamicMarketplace.default)
 
 class Header extends Component {
 
@@ -20,7 +20,7 @@ class Header extends Component {
   }
 
   async componentDidMount() {
-    const userAddress = await ChainAdapter.getUserAddress();
+    const userAddress = await chainAdapter.getUserAddress();
     this.setState({userAddress: userAddress});
   }
 

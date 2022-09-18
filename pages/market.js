@@ -1,18 +1,31 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import ChainAdapter from '../src/chain/adapters/ChainAdapter';
 import NftListRenderingComponent from '../components/NftListRenderingComponent';
-
+import DfinityAdapter from "../src/chain/adapters/DfinityAdapter";
 
 class Marketplace extends NftListRenderingComponent {
 
     state = {nfts: ''}
 
     static async getInitialProps() {
-        const nfts = await ChainAdapter.getListedNfts();
-        return {
-            nfts: nfts
+
+        const isInBroswer = typeof window !== 'undefined';
+        let nfts = [];
+        if(isInBroswer) {
+          const marketplace = (await import('../src/chain/dfinity/declarations/marketplace')).marketplace;
+          console.log(marketplace)
+          const chainAdapter = new DfinityAdapter(marketplace);
+    
+            nfts = await chainAdapter.getListedNfts();
+            return {
+                nfts: nfts,
+                chainAdapter: chainAdapter
+            }
+        }else{
+            console.log("server side");
+            return {nfts: nfts};
         }
+
     }
 
     render() {

@@ -27,6 +27,11 @@ class DfinityAdapter {
         return test_user_id;
     }
 
+    async getListedNfts() {
+        console.log("Nfts listed");
+        return [];
+    }
+
 }
 
 export default DfinityAdapter;

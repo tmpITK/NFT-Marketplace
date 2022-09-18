@@ -2,32 +2,36 @@ import React from "react";
 import NftListRenderingComponent from '../components/NftListRenderingComponent';
 import 'semantic-ui-css/semantic.min.css'
 import DfinityAdapter from "../src/chain/adapters/DfinityAdapter";
-import dynamic from 'next/dynamic'
 
-const DynamicMarketplace = dynamic(
-  () => import('../src/chain/dfinity/declarations/marketplace'),
-  { ssr: false }
-)
-
-const ChainAdapter = new DfinityAdapter(DynamicMarketplace.default)
 
 import Layout from "../components/Layout";
 
 class MarketplaceIndex extends NftListRenderingComponent {
 
   static async getInitialProps(props) {
-    console.log(DfinityAdapter)
+    const isInBroswer = typeof window !== 'undefined';
+    let nfts = [];
+    if(isInBroswer) {
+      const marketplace = (await import('../src/chain/dfinity/declarations/marketplace')).marketplace;
+      console.log(marketplace)
+      const chainAdapter = new DfinityAdapter(marketplace);
 
-    let nfts = await ChainAdapter.getNftList();
-    nfts = nfts.slice(-3);
-    return {
-      nfts: nfts
-    };
+      nfts = await chainAdapter.getNftList();
+      nfts = nfts.slice(-3);
+      return {
+        nfts: nfts,
+        chainAdapter: chainAdapter
+      };
+    } else {
+      console.log("server side");
+      return {nfts: nfts};
+
+    }
   }
 
   render() {
     return(
-      <Layout>
+      <Layout >
           {this.renderNftList()}
       </Layout>
       
