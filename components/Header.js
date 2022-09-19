@@ -7,7 +7,7 @@ import DfinityAdapter from "../src/chain/adapters/DfinityAdapter";
 import dynamic from 'next/dynamic'
 
 const DynamicMarketplace = dynamic(
-  () => import('../src/chain/dfinity/declarations/marketplace'),
+  () => import('../src/declarations/marketplace'),
   { ssr: false }
 )
 

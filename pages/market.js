@@ -12,7 +12,7 @@ class Marketplace extends NftListRenderingComponent {
         const isInBroswer = typeof window !== 'undefined';
         let nfts = [];
         if(isInBroswer) {
-          const marketplace = (await import('../src/chain/dfinity/declarations/marketplace')).marketplace;
+          const marketplace = (await import('../src/declarations/marketplace')).marketplace;
           console.log(marketplace)
           const chainAdapter = new DfinityAdapter(marketplace);
     

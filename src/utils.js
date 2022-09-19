@@ -1,6 +1,5 @@
 import { Card, Image, Form, Button } from 'semantic-ui-react';
 import { Link } from '../routes';
-import Buy from '../components/Buy';
 import ChainAdapter from './chain/adapters/ChainAdapter';
 
 
@@ -25,8 +24,7 @@ export function createCardGroupFromNftList(nftList, isOwner=false, isListing=fal
                         </Link>
                     }
                     {
-                        isListing &&
-                        <Buy marketAddress={process.env.MARKET_ADDRESS } nftAddress={nft.address}></Buy>
+                        isListing
                     }
                 </div>),
                 image: ChainAdapter.getNftImage(nft),
