@@ -12,10 +12,10 @@ actor MarketPlace {
 
     public shared(msg) func mint(ipfsHash: Text, name: Text) : async Principal {
       let owner : Principal = msg.caller;
-
-      Cycles.add(100_000_000_000);
+      Debug.print(debug_show(Cycles.balance()));
+      Cycles.add(200_000_000_000);
       let mintedNft = await NftActorClass.Nft(name, owner, ipfsHash);
-
+      Debug.print(debug_show(Cycles.balance()));
       let mintedNftPrincipal = await mintedNft.getCanisterId();
 
       nftMap.put(mintedNftPrincipal, mintedNft);
@@ -36,10 +36,13 @@ actor MarketPlace {
     };
 
     public query func getOwnedNfts(owner: Principal) : async [Principal] {
+      Debug.print("In get owned nfts");
+
       var ownedNFTs : List.List<Principal> = switch (ownerMap.get(owner)) {
         case null List.nil<Principal>();
         case (?result) result;
       };
+      Debug.print("Before return");
 
       return List.toArray(ownedNFTs);
     }
