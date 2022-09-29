@@ -10,15 +10,14 @@ const NftCard = props => {
     useEffect(() => {
         async function createNftCard() {
             if(typeof props !== "undefined") {
-                console.log("gecc")
-                console.log(props)
                 const {nft, isOwner, isListing} = props;
                 const marketplace = (await import('../src/declarations/marketplace')).marketplace;
-                console.log(marketplace)
                 const chainAdapter = new DfinityAdapter(marketplace);
+                const nftImageUrl = chainAdapter.getNftImage(nft);
+                console.log(nftImageUrl);
                 setNftCard(
                     <Card style={{background: 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5))'}}>
-                        <img src={chainAdapter.getNftImage(nft)} style={{height: "200px", objectFit: "cover", objectPosition: "100% 50%"}}/>
+                        <img src={nftImageUrl} style={{height: "200px", objectFit: "cover", objectPosition: "100% 50%"}}/>
                         <Card.Content >
                             <Card.Header>{nft.name}</Card.Header>
                             <Card.Meta>

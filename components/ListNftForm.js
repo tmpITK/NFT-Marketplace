@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Input, Grid, Button, Message } from "semantic-ui-react";
-import ChainAdapter from "../src/chain/adapters/ChainAdapter";
+import DfinityAdapter from "../src/chain/adapters/DfinityAdapter";
 import { Router } from '../routes';
 
 class ListNftForm extends Component {
@@ -16,16 +16,20 @@ class ListNftForm extends Component {
   }
 
   onSubmit = async (event) => {
-    event.preventDefault();
-    this.setState({loading: true});
-    try{
-        await ChainAdapter.listNftForSale(this.state.nftAddress, this.state.price);
-        this.setState({errorMessage: ""});
-        Router.replaceRoute("/market");
-    }catch (err){
-        this.setState({errorMessage: err.message});
+    if(typeof window !== "undefined") {
+        const marketplace = (await import('../src/declarations/marketplace')).marketplace;
+        const chainAdapter = new DfinityAdapter(marketplace);
+        event.preventDefault();
+        this.setState({loading: true});
+        try{
+            await chainAdapter.listNftForSale(this.state.nftAddress, this.state.price);
+            this.setState({errorMessage: ""});
+            Router.replaceRoute("/market");
+        }catch (err){
+            this.setState({errorMessage: err.message});
+        }
+        this.setState({loading:false});
     }
-    this.setState({loading:false});
 
   };
 
@@ -41,7 +45,7 @@ class ListNftForm extends Component {
                         onChange={(event) => {
                             this.setState({price: event.target.value});
                         }}  
-                        label="eth"
+                        label="icp"
                         labelPosition="right"
                     />
                 </Form.Field>

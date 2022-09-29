@@ -47,7 +47,8 @@ class DfinityAdapter {
     }
 
     async listNftForSale(nftPrincipal, price) {
-        console.log("listing", nftPrincipal, price)
+        const result = this.market.listNftForSale(Principal.fromText(nftPrincipal), parseInt(price));
+        console.log(result);
     } 
 
     async getNftList() {
