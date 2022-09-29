@@ -1,4 +1,6 @@
 service : {
+  getListings: () -> (vec principal) query;
   getOwnedNfts: (principal) -> (vec principal) query;
+  listNftForSale: (principal, nat) -> (text);
   mint: (text, text) -> (principal);
 }

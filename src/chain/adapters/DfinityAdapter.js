@@ -46,6 +46,10 @@ class DfinityAdapter {
           });
     }
 
+    async listNftForSale(nftPrincipal, price) {
+        console.log("listing", nftPrincipal, price)
+    } 
+
     async getNftList() {
         return [];
     }
