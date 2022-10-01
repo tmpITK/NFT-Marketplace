@@ -19,23 +19,7 @@ class DfinityAdapter {
     async getOwnedNfts(userId) {
 
         const ownedNftPrincipals = await this.market.getOwnedNfts(Principal.fromText(userId));
-        const { idlFactory } = (await import('../../declarations/nft'));
-
-        const nfts = await Promise.all(
-            Array(parseInt(ownedNftPrincipals.length))
-                .fill()
-                .map(async (element, index) => {
-                    const nftAddress = ownedNftPrincipals[index];
-                    const nft = await this.getNft(nftAddress, idlFactory);;
-                    return {
-                        name: await nft.getName(),
-                        owner: await nft.getOwner(),
-                        ipfsHash: await nft.getIpfsHash(),
-                        address: nftAddress,
-                    };
-                })
-            );
-
+        const nfts = await this.getNftList(ownedNftPrincipals);
         return nfts;
     }
 
@@ -51,8 +35,24 @@ class DfinityAdapter {
         console.log(result);
     } 
 
-    async getNftList() {
-        return [];
+    async getNftList(principals) {
+        const { idlFactory } = (await import('../../declarations/nft'));
+
+        const nfts =  await Promise.all(
+            Array(parseInt(principals.length))
+                .fill()
+                .map(async (element, index) => {
+                    const nftAddress = principals[index];
+                    const nft = await this.getNft(nftAddress, idlFactory);;
+                    return {
+                        name: await nft.getName(),
+                        owner: await nft.getOwner(),
+                        ipfsHash: await nft.getIpfsHash(),
+                        address: nftAddress,
+                    };
+                })
+            );
+        return nfts;
     }
 
     async getUserAddress() {
@@ -63,7 +63,11 @@ class DfinityAdapter {
 
     async getListedNfts() {
         console.log("Nfts listed");
-        return [];
+        const listings = await this.market.getListings();
+
+        const nfts = await this.getNftList(listings);
+        console.log(nfts);
+        return nfts;
     }
 
     getNftImage(nft) {
