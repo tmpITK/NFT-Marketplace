@@ -80,4 +80,9 @@ actor MarketPlace {
 
       return List.toArray(ownedNFTs);
     };
+
+    public query func getExistingNfts() : async [Principal] {
+      let ids = Iter.toArray(nftMap.keys());
+      return ids;
+    }
 }

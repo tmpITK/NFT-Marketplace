@@ -35,8 +35,13 @@ class DfinityAdapter {
         console.log(result);
     } 
 
-    async getShowCaseNfts() {
-        return [];
+    async getExistingNfts() {
+        console.log("Existing   ")
+        const existingNftPrincipals = await this.market.getExistingNfts();
+        console.log(existingNftPrincipals);
+
+        const nfts = this.getNftList(existingNftPrincipals);
+        return nfts;
     }
 
     async getNftList(principals) {

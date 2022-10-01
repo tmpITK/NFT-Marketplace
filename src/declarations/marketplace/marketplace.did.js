@@ -1,5 +1,6 @@
 export const idlFactory = ({ IDL }) => {
   return IDL.Service({
+    'getExistingNfts' : IDL.Func([], [IDL.Vec(IDL.Principal)], ['query']),
     'getListings' : IDL.Func([], [IDL.Vec(IDL.Principal)], ['query']),
     'getOwnedNfts' : IDL.Func(
         [IDL.Principal],
