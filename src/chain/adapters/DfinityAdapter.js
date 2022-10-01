@@ -35,6 +35,10 @@ class DfinityAdapter {
         console.log(result);
     } 
 
+    async getShowCaseNfts() {
+        return [];
+    }
+
     async getNftList(principals) {
         const { idlFactory } = (await import('../../declarations/nft'));
 

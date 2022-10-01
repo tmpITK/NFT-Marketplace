@@ -16,7 +16,7 @@ class MarketplaceIndex extends NftListRenderingComponent {
       console.log(marketplace)
       const chainAdapter = new DfinityAdapter(marketplace);
 
-      nfts = await chainAdapter.getNftList();
+      nfts = await chainAdapter.getShowCaseNfts();
       nfts = nfts.slice(-3);
       return {
         nfts: nfts,
@@ -30,6 +30,7 @@ class MarketplaceIndex extends NftListRenderingComponent {
   }
 
   render() {
+    console.log(process.env.DFX_NETWORK)
     return(
       <Layout >
           {this.renderNftList()}
