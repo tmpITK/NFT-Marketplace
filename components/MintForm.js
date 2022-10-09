@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form, Input, Grid, Button, Message } from "semantic-ui-react";
 import DfinityAdapter from "../src/chain/adapters/DfinityAdapter";
 import { Router } from '../routes';
+import { AuthClient } from "@dfinity/auth-client";
 
 class MintForm extends Component {
   state = {
@@ -14,13 +15,22 @@ class MintForm extends Component {
 onSubmit = async (event) => {
     if(typeof window !== "undefined") {
         const marketplace = (await import('../src/declarations/marketplace')).marketplace;
-        console.log(marketplace)
+        const { canisterId, createActor } = (await import('../src/declarations/whoami'));
+
         const chainAdapter = new DfinityAdapter(marketplace);
+        const authClient = await AuthClient.create();
+        const identity = await authClient.getIdentity();
+        const whoami_actor = createActor(canisterId, {
+            agentOptions: {
+            identity,
+            },
+        })
+
 
         event.preventDefault();
         this.setState({loading: true});
         try{
-            const userAddress = await chainAdapter.getUserAddress();
+            const userAddress = await chainAdapter.getUserAddress(whoami_actor);
             await chainAdapter.mint(this.state.name, this.state.url);
             this.setState({errorMessage: ""});
             Router.pushRoute(`/user/${userAddress}`);
@@ -29,8 +39,6 @@ onSubmit = async (event) => {
         }
         this.setState({loading: false});
     }
-
-
   };
 
   render() {

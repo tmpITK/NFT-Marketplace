@@ -23,7 +23,7 @@ class NftShow extends Component {
         const {name, owner, ipfsHash } = this.props;
         const { Content, Header, Description} = Card;
         return(
-            <Layout>
+            <Layout LOCAL_II_CANISTER_ID={process.env.LOCAL_II_CANISTER_ID}>
                 <Card centered style={{background: 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5))'}}>
                     <Image src={getIpfsUrlFromHash(ipfsHash)} /> 
                     <Content>

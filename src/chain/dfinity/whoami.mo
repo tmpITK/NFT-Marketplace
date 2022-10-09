@@ -1,5 +1,5 @@
 actor {
     public shared (msg) func whoami() : async Principal {
-        msg.caller
+        return msg.caller;
     };
 };

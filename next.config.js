@@ -7,8 +7,8 @@ const webpack = require("webpack")
 const EnvPlugin = new webpack.EnvironmentPlugin({
   DFX_NETWORK: "local",
 })
-const {__CANDID_UI_CANISTER_ID, ASSETS_CANISTER_ID, MARKETPLACE_CANISTER_ID, NFT_CANISTER_ID} = DFXWebPackConfig.initCanisterIds()
-const LOCAL_II_CANISTER_ID = "rwlgt-iiaaa-aaaaa-aaaaa-cai.localhost:8000/#authorize"
+const {__CANDID_UI_CANISTER_ID, WHOAMI_CANISTER_ID, ASSETS_CANISTER_ID, MARKETPLACE_CANISTER_ID, NFT_CANISTER_ID, LOCAL_II_CANISTER_ID} = DFXWebPackConfig.initCanisterIds()
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -20,6 +20,7 @@ const nextConfig = {
     ASSETS_CANISTER_ID: ASSETS_CANISTER_ID,
     MARKETPLACE_CANISTER_ID: MARKETPLACE_CANISTER_ID,
     NFT_CANISTER_ID: NFT_CANISTER_ID,
+    WHOAMI_CANISTER_ID: WHOAMI_CANISTER_ID,
     LOCAL_II_CANISTER_ID: LOCAL_II_CANISTER_ID,
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {

@@ -10,7 +10,7 @@ const Layout = (props) => {
       <Container>
         <Head>
         </Head>
-        <Header />
+        <Header LOCAL_II_CANISTER_ID={props.LOCAL_II_CANISTER_ID} />
         {props.children}
       </Container>
       <style jsx="true">{`

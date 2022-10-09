@@ -34,14 +34,14 @@ class UserDetails extends NftListRenderingComponent {
         console.log(this.props.nfts)
         if(this.props.isInBroswer){
             return (
-                <Layout >
+                <Layout LOCAL_II_CANISTER_ID={process.env.LOCAL_II_CANISTER_ID}>
                     <h2 className="contrasted-text" style={{textAlign: 'center'}}>NFTs of {this.props.userAddress}</h2>
                     {this.props.nfts.length > 0 && this.renderNftList(true)}
                 </Layout>
             )
         }
         return (
-            <Layout >
+            <Layout LOCAL_II_CANISTER_ID={process.env.LOCAL_II_CANISTER_ID}>
                 <h2 className="contrasted-text" style={{textAlign: 'center'}}>NFTs of {this.props.userAddress}</h2>
             </Layout>
         )

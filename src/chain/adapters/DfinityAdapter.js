@@ -2,6 +2,7 @@ import { getIpfsUrlFromHash } from "../../utils";
 import { Principal } from "@dfinity/principal";
 import { Actor, HttpAgent } from "@dfinity/agent";
 
+
 class DfinityAdapter {
 
     constructor(market) {
@@ -64,9 +65,9 @@ class DfinityAdapter {
         return nfts;
     }
 
-    async getUserAddress() {
-        // right now only testing user for dfinity
-        const test_user_id = Principal.fromText("2vxsx-fae");
+    async getUserAddress(whoami_actor) {
+        console.log(whoami_actor, "whomai in getuseraddress")
+        const test_user_id = await whoami_actor.whoami();
         return test_user_id;
     }
 

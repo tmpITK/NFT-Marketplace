@@ -31,7 +31,7 @@ class Marketplace extends NftListRenderingComponent {
     render() {
         console.log("Rendering market")
         return (
-        <Layout>
+        <Layout LOCAL_II_CANISTER_ID={process.env.LOCAL_II_CANISTER_ID}>
             {this.renderNftList(false, true)}
         </Layout>
         );

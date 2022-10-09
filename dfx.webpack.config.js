@@ -29,6 +29,7 @@ function initCanisterIds() {
     ids[`${canister.toUpperCase()}_CANISTER_ID`] =
       canisters[canister][network]
   }
+  ids['LOCAL_II_CANISTER_ID'] = "rwlgt-iiaaa-aaaaa-aaaaa-cai.localhost:8000/#authorize";
   console.log(ids);
   return ids;
 }

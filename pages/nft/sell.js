@@ -13,7 +13,7 @@ class ListNftForSale extends Component {
 
     render() {
         return(
-          <Layout>          
+          <Layout LOCAL_II_CANISTER_ID={process.env.LOCAL_II_CANISTER_ID}>          
             <h1>
                 <ListNftForm 
                     marketAddress={process.env.MARKET_ADDRESS}
