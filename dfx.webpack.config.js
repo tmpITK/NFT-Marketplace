@@ -22,12 +22,18 @@ function initCanisterIds() {
   console.info(`initCanisterIds: DFX_NETWORK=${process.env.DFX_NETWORK}`)
 
   canisters = network === "local" ? localCanisters : prodCanisters
-
+  ids = {}
   for (const canister in canisters) {
-    process.env[`NEXT_PUBLIC_${canister.toUpperCase()}_CANISTER_ID`] =
+    console.log("Canister: ", canister, canisters[canister][network])
+    console.log("Setting ", `${canister.toUpperCase()}_CANISTER_ID`)
+    ids[`${canister.toUpperCase()}_CANISTER_ID`] =
       canisters[canister][network]
   }
+  console.log(ids);
+  return ids;
 }
+
+frontendDirectory = "pages"
 
 module.exports = {
   initCanisterIds: initCanisterIds
