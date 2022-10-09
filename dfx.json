@@ -10,6 +10,10 @@
       "type": "motoko",
       "main": "src/chain/dfinity/nft.mo"
     },
+    "whoami" : {
+      "type": "motoko",
+      "main": "src/chain/dfinity/whoami.mo"
+    },
     "assets": {
       "type": "assets",
       "source": [
