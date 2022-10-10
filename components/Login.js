@@ -15,6 +15,7 @@ class Login extends React.Component {
     }
 
     async login() {
+        console.log("Paprikas krumpli")
         const authClient = await AuthClient.create();
 
         const days = BigInt(1);

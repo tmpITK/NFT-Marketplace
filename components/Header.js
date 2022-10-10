@@ -24,11 +24,12 @@ class Header extends Component {
 
   async componentDidMount() {
     let userAddress = undefined;
+    const authClient = await AuthClient.create();
+
     if(typeof window !== "undefined") {
       console.log("window");
       const { canisterId, createActor } = (await import('../src/declarations/whoami'));
       console.log("whomai canisterId ", canisterId, createActor)
-      const authClient = await AuthClient.create();
       const identity = await authClient.getIdentity();
       const whoami_actor = createActor(canisterId, {
           agentOptions: {
