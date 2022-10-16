@@ -30,8 +30,6 @@ class MarketplaceIndex extends NftListRenderingComponent {
   }
 
   render() {
-    console.log(process.env.DFX_NETWORK)
-    console.log(process.env.LOCAL_II_CANISTER_ID, "local canister")
     return(
       <Layout LOCAL_II_CANISTER_ID={process.env.LOCAL_II_CANISTER_ID}>
           {this.renderNftList()}

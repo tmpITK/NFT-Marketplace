@@ -22,21 +22,22 @@ class Header extends Component {
     isAuthenticated: false
   }
 
+  constructor(props) {
+    super(props);
+  }
+
   async componentDidMount() {
     let userAddress = undefined;
     const authClient = await AuthClient.create();
 
     if(typeof window !== "undefined") {
-      console.log("window");
       const { canisterId, createActor } = (await import('../src/declarations/whoami'));
-      console.log("whomai canisterId ", canisterId, createActor)
       const identity = await authClient.getIdentity();
       const whoami_actor = createActor(canisterId, {
           agentOptions: {
           identity,
           },
       })
-      console.log(whoami_actor, "actor already done")
       userAddress = await chainAdapter.getUserAddress(whoami_actor);
     }
 
@@ -45,12 +46,9 @@ class Header extends Component {
   }
 
   render() {
-
     const profile = this.state.isAuthenticated ? <Link route={`/user/${this.state.userAddress}`}>
     <a className="item">My Nfts</a>
     </Link> : <Login LOCAL_II_CANISTER_ID={this.props.LOCAL_II_CANISTER_ID} />;
-    console.log(profile);
-    console.log(this.state.isAuthenticated)
     return (
       <Menu inverted>
         <Link route="/">

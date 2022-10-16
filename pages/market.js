@@ -8,7 +8,6 @@ class Marketplace extends NftListRenderingComponent {
     state = {nfts: ''}
 
     static async getInitialProps() {
-        console.log("In market")
         const isInBroswer = typeof window !== 'undefined';
         let nfts = [];
         if(isInBroswer) {
@@ -29,7 +28,6 @@ class Marketplace extends NftListRenderingComponent {
     }
 
     render() {
-        console.log("Rendering market")
         return (
         <Layout LOCAL_II_CANISTER_ID={process.env.LOCAL_II_CANISTER_ID}>
             {this.renderNftList(false, true)}

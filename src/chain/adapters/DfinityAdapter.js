@@ -9,6 +9,7 @@ class DfinityAdapter {
         this.market = market;
         const localHost = "http://localhost:8000/"; // TODO env var
         this.agent = new HttpAgent({ host: localHost });
+        this.agent.fetchRootKey() 
     }
 
     async mint(name, url) {

@@ -2,27 +2,28 @@ import { AuthClient } from "@dfinity/auth-client";
 import React from "react";
 import { Button, Form } from "semantic-ui-react";
 
-let localCanisterId;
 class Login extends React.Component {
-
-
-    static async getInitialProps(props) {
-        console.log("Props ", props)
-        localCanisterId = props.LOCAL_II_CANISTER_ID;
-        return {
-            LOCAL_II_CANISTER_ID: props.LOCAL_II_CANISTER_ID
-        }
+    state = {
+        didMount: false,
+        localCanisterId: undefined
+    }
+    constructor(props) {
+        super(props);
+        this.login = this.login.bind(this)
     }
 
+    componentDidMount() {
+        this.setState({ didMount: true, localCanisterId: this.props.LOCAL_II_CANISTER_ID });
+    }   
+
     async login() {
-        console.log("Paprikas krumpli")
         const authClient = await AuthClient.create();
 
         const days = BigInt(1);
         const hours = BigInt(24);
         const nanoseconds = BigInt(3600000000000);
-        console.log(process.env.DFX_NETWORK, "is this ic");
-
+        let localIdentityProvider = `http://${this.state.localCanisterId}`;
+        console.log(localIdentityProvider)
         await authClient.login({
             onSuccess: async() => {
                 () => console.log("logged in");
@@ -30,13 +31,13 @@ class Login extends React.Component {
             identityProvider:
             process.env.DFX_NETWORK === 'ic'
                 ? "https://identity.ic0.app/#authorize"
-                : localCanisterId,
+                : localIdentityProvider,
             maxTimeToLive: days * hours * nanoseconds,
         });
     }
 
     render() {
-        return (<Form onSubmit={this.login}>
+        return (<Form onSubmit={this.state.didMount ? this.login : () => console.log("Not yet mounted")}>
                     <Button>
                         Login
                     </Button>
