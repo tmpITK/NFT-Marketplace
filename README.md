@@ -1,5 +1,5 @@
 # NFT-Marketplace
-## Learning project - an NFT marketplace
+## DISCLAIMER - this was the first try without deeper understaing of ethereum/solidity - check https://github.com/tmpoe/soa-nft-marketplace-backend for an overhaul
 
 ### Intentions
 
